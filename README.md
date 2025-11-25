@@ -7,7 +7,7 @@ This guide provides basic instructions for setting up and troubleshooting phpMyA
 
 ---
 
-## 🚀 Prerequisites and Server Management (XAMPP)
+## Prerequisites and Server Management (XAMPP)
 
 Before starting, ensure your Web Server (Apache) and Database Server (MariaDB/MySQL) are running.
 
