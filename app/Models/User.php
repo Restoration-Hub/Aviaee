@@ -19,7 +19,10 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
+        'phone_number',
+        'user_type',
         'email',
         'password',
     ];
@@ -31,7 +34,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
     /**
@@ -42,13 +44,14 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
     }
 
     /**
      * Get the user's initials
+     * need to fix this method after name column was removed
+     * and replaced with first_name and last_name
      */
     public function initials(): string
     {
