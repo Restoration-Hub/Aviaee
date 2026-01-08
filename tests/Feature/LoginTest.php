@@ -4,7 +4,9 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
-uses(WithoutMiddleware::class);
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+uses(WithoutMiddleware::class, RefreshDatabase::class);
 
 test('login verification endpoint returns 200 for valid credentials', function () {
     // Arrange: create user with known password
