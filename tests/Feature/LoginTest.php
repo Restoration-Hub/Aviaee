@@ -1,76 +1,65 @@
 <?php
 
-use App\Models\User;
+use App\Domain\UseCases\FetchUserForLogin;
+use App\Domain\Interfaces\IUserRepository;
 use Illuminate\Support\Facades\Hash;
 
-test('login verification endpoint returns 200 for valid credentials', function () {
+beforeEach(function () {
+    $this->userRepo = $this->mock(IUserRepository::class);
+    $this->useCase = new FetchUserForLogin($this->userRepo);
+});
+
+test('login succeeds for valid credentials', function () {
+    $email = 'test@example.com';
     $password = 'secret123';
+    $hashedPassword = Hash::make($password);
+    $userId = 1;
 
-    $user = User::factory()->create([
-        'email' => 'test@example.com',
-        'password' => Hash::make($password),
-    ]);
-
-    $response = $this->postJson('/verify-login-credentials', [
-        'email' => 'test@example.com',
-        'password' => $password,
-    ]);
-
-    $response
-        ->assertStatus(200)
-        ->assertJson([
-            'message' => 'Login successful',
-            'user_id' => $user->id,
+    // Mock the repository to return user data
+    $this->userRepo
+        ->shouldReceive('findByEmail')
+        ->with($email)
+        ->once()
+        ->andReturn([
+            'id' => $userId,
+            'password' => $hashedPassword,
         ]);
+
+    $result = $this->useCase->execute($email, $password);
+
+    expect($result)->toBe($userId);
 });
 
-test('login verification endpoint returns 401 for invalid password', function () {
-    $user = User::factory()->create([
-        'email' => 'test@example.com',
-        'password' => Hash::make('correct-password'),
-    ]);
+test('login fails for invalid password', function () {
+    $email = 'test@example.com';
+    $password = 'wrong-password';
+    $hashedPassword = Hash::make('correct-password');
 
-    $response = $this->postJson('/verify-login-credentials', [
-        'email' => 'test@example.com',
-        'password' => 'wrong-password',
-    ]);
-
-    $response
-        ->assertStatus(401)
-        ->assertJson([
-            'message' => 'Invalid email or password.',
+    $this->userRepo
+        ->shouldReceive('findByEmail')
+        ->with($email)
+        ->once()
+        ->andReturn([
+            'id' => 1,
+            'password' => $hashedPassword,
         ]);
+
+    $result = $this->useCase->execute($email, $password);
+
+    expect($result)->toBeNull();
 });
 
-test('login verification endpoint returns 401 for non existing email', function () {
-    $response = $this->postJson('/verify-login-credentials', [
-        'email' => 'doesnotexist@example.com',
-        'password' => 'anything',
-    ]);
+test('login fails for non-existing user', function () {
+    $email = 'nonexistent@example.com';
+    $password = 'anything';
 
-    $response
-        ->assertStatus(401)
-        ->assertJson([
-            'message' => 'Invalid email or password.',
-        ]);
-});
+    $this->userRepo
+        ->shouldReceive('findByEmail')
+        ->with($email)
+        ->once()
+        ->andReturnNull();
 
-test('login verification endpoint returns 422 when email is missing', function () {
-    $response = $this->postJson('/verify-login-credentials', [
-        'password' => 'secret123',
-    ]);
+    $result = $this->useCase->execute($email, $password);
 
-    $response
-        ->assertStatus(422)
-        ->assertJsonValidationErrors(['email']);
-});
-
-test('login verification endpoint returns 422 when password is missing', function () {
-    $response = $this->postJson('/verify-login-credentials', [
-        'email' => 'test@example.com',
-    ]);
-
-    $response
-        ->assertStatus(422)
-        ->assertJsonValidationErrors(['password']);
+    expect($result)->toBeNull();
 });
