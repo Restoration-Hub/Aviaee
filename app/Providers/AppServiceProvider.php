@@ -16,11 +16,11 @@ class AppServiceProvider extends ServiceProvider
             UserRepository::class
         );
 
-        // $this->app->bind(FetchUserForLogin::class, function ($app) {
-        //     return new FetchUserForLogin(
-        //         $app->make(IUserRepository::class)
-        //     );
-        // });
+        $this->app->bind(FetchUserForLogin::class, function ($app) {
+            return new FetchUserForLogin(
+                $app->make(IUserRepository::class)
+            );
+        });
     }
 
     /**
