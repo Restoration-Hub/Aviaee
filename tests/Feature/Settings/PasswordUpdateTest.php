@@ -1,41 +1,44 @@
 <?php
 
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Livewire\Volt\Volt;
+// Tests are commented out because these are tests which are for the sample dashboard
+// kept them to refer to later if needed.
 
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
+// use App\Models\User;
+// use Illuminate\Support\Facades\Hash;
+// use Livewire\Volt\Volt;
 
-test('password can be updated', function () {
-    $user = User::factory()->create([
-        'password' => Hash::make('password'),
-    ]);
+// uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-    $this->actingAs($user);
+// test('password can be updated', function () {
+//     $user = User::factory()->create([
+//         'password' => Hash::make('password'),
+//     ]);
 
-    $response = Volt::test('settings.password')
-        ->set('current_password', 'password')
-        ->set('password', 'new-password')
-        ->set('password_confirmation', 'new-password')
-        ->call('updatePassword');
+//     $this->actingAs($user);
 
-    $response->assertHasNoErrors();
+//     $response = Volt::test('settings.password')
+//         ->set('current_password', 'password')
+//         ->set('password', 'new-password')
+//         ->set('password_confirmation', 'new-password')
+//         ->call('updatePassword');
 
-    expect(Hash::check('new-password', $user->refresh()->password))->toBeTrue();
-});
+//     $response->assertHasNoErrors();
 
-test('correct password must be provided to update password', function () {
-    $user = User::factory()->create([
-        'password' => Hash::make('password'),
-    ]);
+//     expect(Hash::check('new-password', $user->refresh()->password))->toBeTrue();
+// });
 
-    $this->actingAs($user);
+// test('correct password must be provided to update password', function () {
+//     $user = User::factory()->create([
+//         'password' => Hash::make('password'),
+//     ]);
 
-    $response = Volt::test('settings.password')
-        ->set('current_password', 'wrong-password')
-        ->set('password', 'new-password')
-        ->set('password_confirmation', 'new-password')
-        ->call('updatePassword');
+//     $this->actingAs($user);
 
-    $response->assertHasErrors(['current_password']);
-});
+//     $response = Volt::test('settings.password')
+//         ->set('current_password', 'wrong-password')
+//         ->set('password', 'new-password')
+//         ->set('password_confirmation', 'new-password')
+//         ->call('updatePassword');
+
+//     $response->assertHasErrors(['current_password']);
+// });

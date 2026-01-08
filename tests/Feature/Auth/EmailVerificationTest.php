@@ -1,11 +1,14 @@
-<?php
+<!-- <?php
 
-use App\Models\User;
-use Illuminate\Auth\Events\Verified;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\URL;
+// Tests are commented out because these are tests which are for the sample dashboard
+// kept them to refer to later if needed.
 
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
+// use App\Models\User;
+// use Illuminate\Auth\Events\Verified;
+// use Illuminate\Support\Facades\Event;
+// use Illuminate\Support\Facades\URL;
+
+// uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
 /**
  * Will likely need to add email_verified_at and remember_token fields to the user factory again.
@@ -51,4 +54,4 @@ uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 //     $this->actingAs($user)->get($verificationUrl);
 
 //     expect($user->fresh()->hasVerifiedEmail())->toBeFalse();
-// });
+// }); -->

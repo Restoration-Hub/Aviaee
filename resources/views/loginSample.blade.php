@@ -35,7 +35,7 @@
             }
 
             try {
-                const response = await fetch('/login-verify', {
+                const response = await fetch('/verify-login-credentials', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

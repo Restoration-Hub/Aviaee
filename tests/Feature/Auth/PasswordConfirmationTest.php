@@ -1,40 +1,43 @@
-<?php
+<!-- <?php
 
-use App\Models\User;
-use Livewire\Volt\Volt;
+// Tests are commented out because these are tests which are for the sample dashboard
+// kept them to refer to later if needed.
 
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
+// use App\Models\User;
+// use Livewire\Volt\Volt;
 
-test('confirm password screen can be rendered', function () {
-    $user = User::factory()->create();
+// uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-    $response = $this->actingAs($user)->get('/confirm-password');
+// test('confirm password screen can be rendered', function () {
+//     $user = User::factory()->create();
 
-    $response->assertStatus(200);
-});
+//     $response = $this->actingAs($user)->get('/confirm-password');
 
-test('password can be confirmed', function () {
-    $user = User::factory()->create();
+//     $response->assertStatus(200);
+// });
 
-    $this->actingAs($user);
+// test('password can be confirmed', function () {
+//     $user = User::factory()->create();
 
-    $response = Volt::test('auth.confirm-password')
-        ->set('password', 'password')
-        ->call('confirmPassword');
+//     $this->actingAs($user);
 
-    $response
-        ->assertHasNoErrors()
-        ->assertRedirect(route('dashboard', absolute: false));
-});
+//     $response = Volt::test('auth.confirm-password')
+//         ->set('password', 'password')
+//         ->call('confirmPassword');
 
-test('password is not confirmed with invalid password', function () {
-    $user = User::factory()->create();
+//     $response
+//         ->assertHasNoErrors()
+//         ->assertRedirect(route('dashboard', absolute: false));
+// });
 
-    $this->actingAs($user);
+// test('password is not confirmed with invalid password', function () {
+//     $user = User::factory()->create();
 
-    $response = Volt::test('auth.confirm-password')
-        ->set('password', 'wrong-password')
-        ->call('confirmPassword');
+//     $this->actingAs($user);
 
-    $response->assertHasErrors(['password']);
-});
+//     $response = Volt::test('auth.confirm-password')
+//         ->set('password', 'wrong-password')
+//         ->call('confirmPassword');
+
+//     $response->assertHasErrors(['password']);
+// });

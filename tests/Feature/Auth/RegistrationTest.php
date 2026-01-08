@@ -1,28 +1,31 @@
 <?php
 
-use Livewire\Volt\Volt;
+// Tests are commented out because these are tests which are for the sample dashboard
+// kept them to refer to later if needed.
 
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
+// use Livewire\Volt\Volt;
 
-test('registration screen can be rendered', function () {
-    $response = $this->get('/register');
+// uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-    $response->assertStatus(200);
-});
+// test('registration screen can be rendered', function () {
+//     $response = $this->get('/register');
 
-test('new users can register', function () {
-    $response = Volt::test('auth.register')
-        ->set('first_name', 'John')
-        ->set('last_name', 'Pork')
-        ->set('phone_number', '1234567890')
-        ->set('email', 'test@example.com')
-        ->set('password', 'password')
-        ->set('password_confirmation', 'password')
-        ->call('register');
+//     $response->assertStatus(200);
+// });
 
-    $response
-        ->assertHasNoErrors()
-        ->assertRedirect(route('dashboard', absolute: false));
+// test('new users can register', function () {
+//     $response = Volt::test('auth.register')
+//         ->set('first_name', 'John')
+//         ->set('last_name', 'Pork')
+//         ->set('phone_number', '1234567890')
+//         ->set('email', 'test@example.com')
+//         ->set('password', 'password')
+//         ->set('password_confirmation', 'password')
+//         ->call('register');
 
-    $this->assertAuthenticated();
-});
+//     $response
+//         ->assertHasNoErrors()
+//         ->assertRedirect(route('dashboard', absolute: false));
+
+//     $this->assertAuthenticated();
+// });

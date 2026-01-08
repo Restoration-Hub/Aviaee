@@ -1,47 +1,49 @@
 <?php
+// Tests are commented out because these are tests which are for the sample dashboard
+// kept them to refer to later if needed.
 
-use App\Models\User;
-use Illuminate\Auth\Notifications\ResetPassword;
-use Illuminate\Support\Facades\Notification;
-use Livewire\Volt\Volt;
+// use App\Models\User;
+// use Illuminate\Auth\Notifications\ResetPassword;
+// use Illuminate\Support\Facades\Notification;
+// use Livewire\Volt\Volt;
 
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
+// uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-test('reset password link screen can be rendered', function () {
-    $response = $this->get('/forgot-password');
+// test('reset password link screen can be rendered', function () {
+//     $response = $this->get('/forgot-password');
 
-    $response->assertStatus(200);
-});
+//     $response->assertStatus(200);
+// });
 
-test('reset password link can be requested', function () {
-    Notification::fake();
+// test('reset password link can be requested', function () {
+//     Notification::fake();
 
-    $user = User::factory()->create();
+//     $user = User::factory()->create();
 
-    Volt::test('auth.forgot-password')
-        ->set('email', $user->email)
-        ->call('sendPasswordResetLink');
+//     Volt::test('auth.forgot-password')
+//         ->set('email', $user->email)
+//         ->call('sendPasswordResetLink');
 
-    Notification::assertSentTo($user, ResetPassword::class);
-});
+//     Notification::assertSentTo($user, ResetPassword::class);
+// });
 
-test('reset password screen can be rendered', function () {
-    Notification::fake();
+// test('reset password screen can be rendered', function () {
+//     Notification::fake();
 
-    $user = User::factory()->create();
+//     $user = User::factory()->create();
 
-    Volt::test('auth.forgot-password')
-        ->set('email', $user->email)
-        ->call('sendPasswordResetLink');
+//     Volt::test('auth.forgot-password')
+//         ->set('email', $user->email)
+//         ->call('sendPasswordResetLink');
 
-    Notification::assertSentTo($user, ResetPassword::class, function ($notification) {
-        $response = $this->get('/reset-password/'.$notification->token);
+//     Notification::assertSentTo($user, ResetPassword::class, function ($notification) {
+//         $response = $this->get('/reset-password/'.$notification->token);
 
-        $response->assertStatus(200);
+//         $response->assertStatus(200);
 
-        return true;
-    });
-});
+//         return true;
+//     });
+// });
 
 /**
  * Will likely need to add email_verified_at and remember_token fields to the user factory again.

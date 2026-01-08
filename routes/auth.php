@@ -9,8 +9,8 @@ Route::middleware('guest')->group(function () {
     Volt::route('login', 'auth.login')
         ->name('login');
     
-    Route::post('/login-verify', VerifyLoginCredentialsController::class)
-    ->name('login.verify');
+    Route::post('/verify-login-credentials', VerifyLoginCredentialsController::class)
+    ->name('verify.login.credentials');
 
     Volt::route('register', 'auth.register')
         ->name('register');
