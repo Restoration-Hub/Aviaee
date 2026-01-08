@@ -19,7 +19,7 @@ test('login succeeds for valid credentials', function () {
     $this->userRepo
         ->shouldReceive('findByEmail')
         ->with($email)
-        ->once()
+        ->once() 
         ->andReturn([
             'id' => $userId,
             'password' => $hashedPassword,
