@@ -8,8 +8,12 @@ use Livewire\Volt\Volt;
 // })->name('home');
 
 Route::get('/', function () {
-    return view('loginSample');
+    return view('loginPage');
 })->name('home');
+
+Route::get('/registration', function () {
+    return view('registrationPage');
+})->name('registration');
 
 // Route::get('/login-sample', function () {
 //     return view('loginSample');
