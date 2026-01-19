@@ -25,11 +25,13 @@
 
             <div class="input-group">
                 <label>Email</label>
+                <br>
                 <input class="input-box" id="email" type="email">
             </div>
 
             <div class="input-group">
                 <label>Password</label>
+                <br>
                 <input class="input-box" id="password" type="password">
             </div>
 
