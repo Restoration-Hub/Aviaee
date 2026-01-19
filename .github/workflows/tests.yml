@@ -50,9 +50,6 @@ jobs:
       - name: Build Assets
         run: npm run build
 
-      - name: Run vite
-        run: npm run dev
-
       - name: Dump Composer Autoload
         run: composer dump-autoload
 
