@@ -11,21 +11,24 @@ This guide provides basic instructions for setting up and troubleshooting phpMyA
 
 Before starting, ensure your Web Server (Apache) and Database Server (MariaDB/MySQL) are running.
 
+If you are on Windows, make sure to navigate to the xammp folder before running the commands below:
+`cd C:\xampp`
+
 ### Web Server (Apache)
 
-| Action | Command |
-| :--- | :--- |
-| **Restart Apache** | `sudo /Applications/XAMPP/xamppfiles/xampp restartapache` |
+| Action | Mac Command | Windows Command |
+| :--- | :--- | :--- |
+| **Restart Apache** | `sudo /Applications/XAMPP/xamppfiles/xampp restartapache` | `.\apache_stop.bat; .\apache_start.bat` |
 
 ### Database Server (MariaDB/MySQL)
 
 Use the following commands to manage your database server.
 
-| Action | Command |
-| :--- | :--- |
-| **Start Server** | `sudo /Applications/XAMPP/bin/mysql.server start` |
-| **Stop Server** | `sudo /Applications/XAMPP/bin/mysql.server stop` |
-| **Restart Server** | `sudo /Applications/XAMPP/bin/mysql.server restart` |
+| Action | Mac Command | Windows Command |
+| :--- | :--- | :--- |
+| **Start Server** | `sudo /Applications/XAMPP/bin/mysql.server start` | `.\mysql_start.bat` |
+| **Stop Server** | `sudo /Applications/XAMPP/bin/mysql.server stop` | `.\mysql_stop.bat` |
+| **Restart Server** | `sudo /Applications/XAMPP/bin/mysql.server restart` | `.\mysql_stop.bat; .\mysql_start.bat` |
 
 ---
 
@@ -47,11 +50,16 @@ Once your Apache and MariaDB services are running, open your web browser and nav
 
 If you encounter the **"Configuration file is world writable"** error upon accessing phpMyAdmin, run the following command in your terminal to fix the permissions:
 
+Mac:
 ```bash
 sudo chmod 755 /Applications/XAMPP/xamppfiles/phpmyadmin
 ```
+Windows:
+* Open PowerShell as Administrator and replace `%USERNAME%`
+```bash
+icacls "C:\xampp\phpMyAdmin" /grant %USERNAME%:F /T
+```
 
-On mac:
 If the above does not work, go to config.inc.php 'Get Info' and change admin and everyone permissions to 'Read Only' 
 
 ---
