@@ -34,17 +34,22 @@ class UserRepository implements IUserRepository
     public function create(UserEntity $user, string $hashedPassword): UserEntity
     {
         $model = UserModel::create([
-            'first_name' => $user->firstName,
-            'last_name'  => $user->lastName,
-            'email'      => $user->email,
-            'password'   => $hashedPassword,
+            'first_name'   => $user->firstName,
+            'last_name'    => $user->lastName,
+            'phone_number' => $user->phoneNumber,
+            'user_type'    => $user->userType,
+            'email'        => $user->email,
+            'password'     => $hashedPassword,
         ]);
 
         return new UserEntity(
             id: $model->id,
             firstName: $model->first_name,
             lastName: $model->last_name,
-            email: $model->email
+            phoneNumber: $model->phone_number,
+            userType: $model->user_type,
+            email: $model->email,
+            password: $model->password,
         );
     }
 }

@@ -8,7 +8,10 @@ class UserEntity
         public ?int $id,
         public string $firstName,
         public string $lastName,
-        public string $email
+        public string $phoneNumber,
+        public string $userType,
+        public string $email,
+        public string $password,
     ) {}
 
     public function initials(): string
