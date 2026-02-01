@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\VerifyLoginCredentialsController;
+use App\Http\Controllers\Auth\RegisterUserController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -11,6 +12,9 @@ Route::middleware('guest')->group(function () {
     
     Route::post('/verify-login-credentials', VerifyLoginCredentialsController::class)
     ->name('verify.login.credentials');
+
+    Route::post('/register', RegisterUserController::class)
+    ->name('register');
 
     Volt::route('register', 'auth.register')
         ->name('register');

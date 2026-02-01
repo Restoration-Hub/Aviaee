@@ -30,22 +30,35 @@ class VerifyLoginCredentialsController extends Controller
             'password' => 'required|string',
         ]);
 
-        // Call the use case
-        $userId = $this->fetchUser->execute(
-            $request->input('email'),
-            $request->input('password')
-        );
+        try {
+            // Call the use case
+            $userId = $this->fetchUser->execute(
+                $request->input('email'),
+                $request->input('password')
+            );
 
-        // Return response
-        if (!$userId) {
+            // Return response
+            if (!$userId) {
+                return response()->json([
+                    'message' => 'Invalid email or password.'
+                ], 401);
+            }
+
             return response()->json([
-                'message' => 'Invalid email or password.'
-            ], 401);
-        }
+                'message' => 'Login successful',
+                'user_id' => $userId
+            ], 200);
 
-        return response()->json([
-            'message' => 'Login successful',
-            'user_id' => $userId
-        ], 200);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'message' => 'Validation error',
+                'errors' => $e->errors(),
+            ], 422);
+
+        } catch (Throwable $e) {
+            return response()->json([
+                'message' => 'Internal server error'
+            ], 500);
+        }
     }
 }
