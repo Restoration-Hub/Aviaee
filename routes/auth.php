@@ -8,9 +8,9 @@ use Livewire\Volt\Volt;
 Route::middleware('guest')->group(function () {
     Volt::route('login', 'auth.login')
         ->name('login');
-    
+
     Route::post('/verify-login-credentials', VerifyLoginCredentialsController::class)
-    ->name('verify.login.credentials');
+        ->name('verify.login.credentials');
 
     Volt::route('register', 'auth.register')
         ->name('register');
@@ -21,6 +21,8 @@ Route::middleware('guest')->group(function () {
     Volt::route('reset-password/{token}', 'auth.reset-password')
         ->name('password.reset');
 
+    // Route::post('/missions', CreateMissionController::class)
+    //     ->name('missions.store'); // TODO: Move this to auth after login implementation complete
 });
 
 Route::middleware('auth')->group(function () {
