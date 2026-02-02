@@ -15,9 +15,11 @@
             </select>
         </div>
 
+        {{-- TODO: update with actual create missions url once done implementation --}}
         <div>
             <a href="{{ url('/missions/create') }}" class="create-mission-button">
-                <img src="{{ Vite::asset('resources/assets/plus-icon.svg') }}" alt="Plus Icon"> Create Mission
+                <img src="{{ Vite::asset('resources/assets/plus-icon.svg') }}" alt="Plus Icon"> 
+                Create Mission
             </a>
         </div>
     </div>
