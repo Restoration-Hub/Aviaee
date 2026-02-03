@@ -1,0 +1,78 @@
+body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: #FFFAF3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.header {
+    width: 100%;
+    background-color: #C75333;
+    color: white;
+    padding: 16px 24px;
+    font-size: 28px;
+}
+
+.header-title {
+    margin-left: 30px;
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.create-mission-box {
+    padding: 30px;
+    border-radius: 6px;
+    width: 500px;
+    text-align: center;
+}
+
+.input-box {
+    width: 90%;
+    padding: 15px;
+    font-family: 'Josefin Sans', sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 15px;
+    background-color: #F0F0F0;
+    margin-top: 8px;
+}
+
+.input-group {
+    text-align: left;
+    margin-bottom: 30px;
+    font-size: 14px;
+
+}
+
+.create-button {
+    background-color: #639EB0;
+    border: none;
+    color: white;
+    padding: 10px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 10px;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.cancel-button {
+    background-color: #FFFAF3;
+    border: 1px solid #639EB0;
+    color: #639EB0;
+    padding: 10px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 10px;
+    font-family: 'Josefin Sans', sans-serif;
+}
+

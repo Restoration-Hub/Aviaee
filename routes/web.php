@@ -15,6 +15,10 @@ Route::get('/registration', function () {
     return view('registrationPage');
 })->name('registration');
 
+Route::get('/createMission', function () {
+    return view('createMissionPage');
+})->name('createMission');
+
 // Route::get('/login-sample', function () {
 //     return view('loginSample');
 // });
