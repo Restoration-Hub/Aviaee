@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\VerifyLoginCredentialsController;
+use App\Http\Controllers\Auth\RegisterUserController;
 use App\Http\Controllers\Missions\CreateMissionController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
@@ -9,9 +10,12 @@ use Livewire\Volt\Volt;
 Route::middleware('guest')->group(function () {
     Volt::route('login', 'auth.login')
         ->name('login');
-    
+
     Route::post('/verify-login-credentials', VerifyLoginCredentialsController::class)
-    ->name('verify.login.credentials');
+        ->name('verify.login.credentials');
+
+    Route::post('/register', RegisterUserController::class)
+        ->name('register');
 
     Volt::route('register', 'auth.register')
         ->name('register');
@@ -23,7 +27,7 @@ Route::middleware('guest')->group(function () {
         ->name('password.reset');
 
     Route::post('/missions', CreateMissionController::class)
-            ->name('missions.store'); // TODO: Move this to auth after login implementation complete
+        ->name('missions.store'); // TODO: Move this to auth after login implementation complete
 });
 
 Route::middleware('auth')->group(function () {

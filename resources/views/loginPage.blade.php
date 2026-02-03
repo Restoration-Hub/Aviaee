@@ -42,28 +42,22 @@
             <button id="loginBtn" class="action-button">Sign In</button>
 
             <p style="margin-top: 16px;">
-                <a href="#" class="link">Don't have an account? Register</a>
+                <a href="{{ route('registration') }}" class="link">
+                    Don't have an account? Register
+                </a>
             </p>
-
-                <div id="message" style="margin-top: 10px; font-weight: bold;"></div>
         </div>
     </div>
 
-
-
-    <div id="message" style="margin-top: 10px; font-weight: bold;"></div>
-
     <script>
         const loginBtn = document.getElementById('loginBtn');
-        const messageDiv = document.getElementById('message');
 
         loginBtn.addEventListener('click', async () => {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            messageDiv.textContent = '';
 
             if (!email || !password) {
-                messageDiv.textContent = 'Please enter email and password.';
+                console.warn('Please enter email and password.');
                 return;
             }
 
@@ -79,15 +73,21 @@
                 });
 
                 if (response.status === 200) {
-                    messageDiv.textContent = 'User found!';
+                    console.log('Login successful');
                 } else if (response.status === 401) {
                     const data = await response.json();
-                    messageDiv.textContent = data.message || 'Unauthorized';
+                    console.error(data.message || 'Unauthorized');
+                } else if (response.status === 422) {
+                    const data = await response.json();
+                    console.error(data.message || 'Validation error');
+                } else if (response.status === 500) {
+                    const data = await response.json();
+                    console.error(data.message || 'Internal server error');
                 } else {
-                    messageDiv.textContent = 'An error occurred: ' + response.status;
+                    console.error('Unexpected error:', response.status);
                 }
             } catch (error) {
-                messageDiv.textContent = 'Network error: ' + error.message;
+                console.error('Network error: ' + error.message);
             }
         });
     </script>
