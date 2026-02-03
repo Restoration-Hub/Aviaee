@@ -22,6 +22,7 @@ class Mission extends Model
         'status',
         'starting_location',
         'destination',
+        'email',
         'date_created',
         'date_delivered',
     ];

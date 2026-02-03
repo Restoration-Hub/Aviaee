@@ -24,6 +24,7 @@ class MissionRepository implements IMissionRepository
             'status'       => $mission->status,
             'starting_location' => $mission->startingLocation,
             'destination'   => $mission->destination,
+            'email'         => $mission->email ?? (auth()->check() ? auth()->user()->email : null),
             'date_created'  => $mission->dateCreated,
             'date_delivered' => $mission->dateDelivered
         ]);
