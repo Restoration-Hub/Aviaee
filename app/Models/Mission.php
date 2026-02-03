@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
@@ -20,7 +19,11 @@ class Mission extends Model
      */
     protected $fillable = [
         'mission_name',
-        'destination',
+        'status',
         'starting_location',
+        'destination',
+        'email',
+        'date_created',
+        'date_delivered',
     ];
 }
