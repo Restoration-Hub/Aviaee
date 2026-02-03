@@ -28,6 +28,7 @@ class CreateMissionController extends Controller
             'mission_name' => $validated['missionName'],
             'starting_location' => $validated['startingLocation'],
             'destination' => $validated['destination'],
+            'email' => $request->user()?->email,
         ]);
 
         return response()->json([

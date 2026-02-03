@@ -4,11 +4,13 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-// Domain interface
+// Domain interfaces
 use App\Domain\Interfaces\IUserRepository;
+use App\Domain\Interfaces\IMissionRepository;
 
-// Concrete repository
+// Concrete repositories
 use App\Repositories\UserRepository;
+use App\Repositories\MissionRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -21,6 +23,12 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             IUserRepository::class,
             UserRepository::class
+        );
+
+        // Bind mission repository
+        $this->app->bind(
+            IMissionRepository::class,
+            MissionRepository::class
         );
     }
 

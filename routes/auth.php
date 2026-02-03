@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\VerifyLoginCredentialsController;
 use App\Http\Controllers\Auth\RegisterUserController;
 use App\Http\Controllers\Missions\CreateMissionController;
+use App\Http\Controllers\Missions\GetMissionsController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -25,9 +26,15 @@ Route::middleware('guest')->group(function () {
 
     Volt::route('reset-password/{token}', 'auth.reset-password')
         ->name('password.reset');
+});
 
-    // Route::post('/missions', CreateMissionController::class)
-    //     ->name('missions.store'); // TODO: Move this to auth after login implementation complete
+// Missions endpoints require an authenticated session
+Route::middleware('auth')->group(function () {
+    Route::post('/missions', CreateMissionController::class)
+        ->name('missions.store');
+
+    Route::get('/missions', GetMissionsController::class)
+        ->name('missions.get');
 });
 
 Route::middleware('auth')->group(function () {

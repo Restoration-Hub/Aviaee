@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Domain\UseCases\FetchUserForLogin;
+use Illuminate\Support\Facades\Auth;
 
 class VerifyLoginCredentialsController extends Controller
 {
@@ -44,17 +45,19 @@ class VerifyLoginCredentialsController extends Controller
                 ], 401);
             }
 
+            // Log the user in so subsequent requests are authenticated
+            Auth::loginUsingId($userId);
+            $request->session()->regenerate();
+
             return response()->json([
                 'message' => 'Login successful',
                 'user_id' => $userId
             ], 200);
-
         } catch (ValidationException $e) {
             return response()->json([
                 'message' => 'Validation error',
                 'errors' => $e->errors(),
             ], 422);
-
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Internal server error'

@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
 
 class MissionsTable extends Component
 {
@@ -28,36 +29,29 @@ class MissionsTable extends Component
         $this->resetPage();
     }
 
-    protected function defaultTestMissions()
-    {
-        return collect([
-            [
-                'id' => 1,
-                'missionName' => 'Test 1234',
-                'status' => 'delivered',
-                'startingLocation' => 'Point A',
-                'destination' => "Point B",
-                'email' => 'alpha@example.com',
-                'dateCreated' => '2026-01-10',
-                'dateDelivered' => '2026-01-15',
-            ],
-            [
-                'id' => 2,
-                'missionName' => 'Test 4321',
-                'status' => 'inTransit',
-                'startingLocation' => 'Point C',
-                'destination' => 'Point D',
-                'email' => 'beta@example.com',
-                'dateCreated' => '2026-01-12',
-                'dateDelivered' => null,
-            ],
-        ]);
-    }
-
     public function render()
     {
-        // TODO: update to fetch from database
-        $items = $this->defaultTestMissions();
+        // Fetch missions for the authenticated user via repository
+        $items = collect();
+
+        $email = Auth::user()?->email;
+        if ($email) {
+            $repo = app(\App\Domain\Interfaces\IMissionRepository::class);
+            $entities = $repo->getMissions($email);
+
+            $items = collect(array_map(function ($m) {
+                return [
+                    'id' => $m->id,
+                    'missionName' => $m->missionName,
+                    'status' => $m->status,
+                    'startingLocation' => $m->startingLocation,
+                    'destination' => $m->destination,
+                    'email' => $m->email,
+                    'dateCreated' => (string) $m->dateCreated,
+                    'dateDelivered' => (string) $m->dateDelivered,
+                ];
+            }, $entities));
+        }
 
         // apply filters on collection
         $filtered = $items->filter(function ($m) {

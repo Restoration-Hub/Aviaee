@@ -15,9 +15,8 @@
             </select>
         </div>
 
-        {{-- TODO: update with actual create missions url once done implementation --}}
         <div>
-            <a href="{{ url('/missions/create') }}" class="create-mission-button">
+            <a href="{{ route('create.mission') }}" class="create-mission-button">
                 <img src="{{ Vite::asset('resources/assets/plus-icon.svg') }}" alt="Plus Icon"> 
                 Create Mission
             </a>
@@ -37,9 +36,11 @@
                         <th scope="col">Date Delivered</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="missions-tbody">
+                    <tr id="missions-loading"><td colspan="6">Loading missions...</td></tr>
+
                     @forelse($missions as $m)
-                        <tr>
+                        <tr class="server-mission">
                             <td>{{ is_array($m) ? $m['missionName'] : $m->mission_name }}</td>
 
                             @php
@@ -59,52 +60,95 @@
                             <td>{{ is_array($m) ? ($m['dateDelivered'] ?: 'N/A') : (isset($m->date_delivered) ? optional($m->date_delivered)->format('Y-m-d') : '-') }}</td>
                         </tr>
                     @empty
-                        @php $s = \App\Enums\MissionStatus::ORDERED; @endphp
                         <tr>
-                            <td>Test Mission 1</td>
-                            <td><span class="status-badge" style="background: {{ $s->color() }}">{{ $s->label() }}</span></td>
-                            <td>Point A</td>
-                            <td>Point B</td>
-                            <td>2026-01-10</td>
-                            <td>N/A</td>
-                        </tr>
-
-                        @php $s = \App\Enums\MissionStatus::PACKED; @endphp
-                        <tr>
-                            <td>Test Mission 2</td>
-                            <td><span class="status-badge" style="background: {{ $s->color() }}">{{ $s->label() }}</span></td>
-                            <td>Point C</td>
-                            <td>Point D</td>
-                            <td>2026-01-12</td>
-                            <td>N/A</td>
-                        </tr>
-
-                        @php $s = \App\Enums\MissionStatus::IN_TRANSIT; @endphp
-                        <tr>
-                            <td>Test Mission 3</td>
-                            <td><span class="status-badge" style="background: {{ $s->color() }}">{{ $s->label() }}</span></td>
-                            <td>Point E</td>
-                            <td>Point F</td>
-                            <td>2026-01-10</td>
-                            <td>N/A</td>
-                        </tr>
-
-                        @php $s = \App\Enums\MissionStatus::DELIVERED; @endphp
-                        <tr>
-                            <td>Test Mission 4</td>
-                            <td><span class="status-badge" style="background: {{ $s->color() }}">{{ $s->label() }}</span></td>
-                            <td>Point G</td>
-                            <td>Point H</td>
-                            <td>2026-01-10</td>
-                            <td>2026-01-15</td>
-                        </tr>
-
-                        {{-- TODO: uncomment this when the backend implementation is complete --}}
-                        {{-- <tr>
                             <td colspan="6" class="no-results">No missions found.</td>
-                        </tr> --}}
+                        </tr>
                     @endforelse
                 </tbody>
+
+                <script>
+                    (function() {
+                        const tbody = document.getElementById('missions-tbody');
+                        if (!tbody) return;
+
+                        const loadingRow = '<tr><td colspan="6">Loading missions...</td></tr>';
+                        const noResultsRow = '<tr><td colspan="6" class="no-results">No missions found.</td></tr>';
+
+                        const statusMap = {
+                            'ordered': {label: 'Ordered', color: '#F7D579'},
+                            'packed': {label: 'Packed', color: '#F5A97B'},
+                            'inTransit': {label: 'In Transit', color: '#99D5E4'},
+                            'delivered': {label: 'Delivered', color: '#C6E293'},
+                        };
+
+                        async function fetchAndRender() {
+                            tbody.innerHTML = loadingRow;
+
+                            try {
+                                const resp = await fetch('/missions', { credentials: 'same-origin' });
+                                if (!resp.ok) {
+                                    tbody.innerHTML = '<tr><td colspan="6">Error loading missions.</td></tr>';
+                                    return;
+                                }
+
+                                const contentType = resp.headers.get('Content-Type') || '';
+                                if (!contentType.includes('application/json')) {
+                                    // Likely redirected to login or HTML response - show message
+                                    tbody.innerHTML = '<tr><td colspan="6">Not authenticated — please sign in.</td></tr>';
+                                    return;
+                                }
+
+                                const json = await resp.json();
+                                const missions = json.missions || [];
+
+                                if (!missions.length) {
+                                    tbody.innerHTML = noResultsRow;
+                                    return;
+                                }
+
+                                const rows = missions.map(function(m) {
+                                    const s = statusMap[m.status] || {label: (m.status || 'Unknown'), color: '#6b7280'};
+                                    const dateDelivered = m.dateDelivered ? m.dateDelivered : 'N/A';
+
+                                    return '<tr>' +
+                                        '<td>' + escapeHtml(m.missionName) + '</td>' +
+                                        '<td><span class="status-badge" style="background: ' + s.color + '">' + escapeHtml(s.label) + '</span></td>' +
+                                        '<td>' + escapeHtml(m.startingLocation) + '</td>' +
+                                        '<td>' + escapeHtml(m.destination) + '</td>' +
+                                        '<td>' + escapeHtml(m.dateCreated) + '</td>' +
+                                        '<td>' + escapeHtml(dateDelivered) + '</td>' +
+                                    '</tr>';
+                                }).join('');
+
+                                tbody.innerHTML = rows;
+
+                            } catch (e) {
+                                tbody.innerHTML = '<tr><td colspan="6">Network error while loading missions.</td></tr>';
+                            }
+                        }
+
+                        function escapeHtml(str) {
+                            if (str === null || str === undefined) return '';
+                            return String(str)
+                                .replace(/&/g, '&amp;')
+                                .replace(/</g, '&lt;')
+                                .replace(/>/g, '&gt;')
+                                .replace(/"/g, '&quot;')
+                                .replace(/'/g, '&#039;');
+                        }
+
+                        // Run on DOM ready
+                        document.addEventListener('DOMContentLoaded', fetchAndRender);
+
+                        // Also run after Livewire updates if available
+                        document.addEventListener('livewire:load', function() {
+                            fetchAndRender();
+                            if (window.Livewire && Livewire.hook) {
+                                Livewire.hook('message.processed', fetchAndRender);
+                            }
+                        });
+                    })();
+                </script>
             </table>
 
             <div class="pagination-wrap">
