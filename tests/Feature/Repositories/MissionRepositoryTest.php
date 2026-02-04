@@ -9,6 +9,7 @@ use App\Models\User;
 /**
  * Test the MissionRepository
  */
+
 test('creates a mission in the database and sets creator email from authenticated user', function () {
 
     // Arrange: repository and authenticated user

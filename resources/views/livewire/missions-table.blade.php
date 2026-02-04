@@ -60,9 +60,7 @@
                             <td>{{ is_array($m) ? ($m['dateDelivered'] ?: 'N/A') : (isset($m->date_delivered) ? optional($m->date_delivered)->format('Y-m-d') : '-') }}</td>
                         </tr>
                     @empty
-                        <tr>
-                            <td colspan="6" class="no-results">No missions found.</td>
-                        </tr>
+                        {{-- No missions from server; will be handled by JS below --}}
                     @endforelse
                 </tbody>
 

@@ -28,7 +28,7 @@ Route::middleware('guest')->group(function () {
         ->name('password.reset');
 });
 
-// Missions endpoints require an authenticated session
+// Missions endpoints require an authenticated session (create and get missions by email)
 Route::middleware('auth')->group(function () {
     Route::post('/missions', CreateMissionController::class)
         ->name('missions.store');

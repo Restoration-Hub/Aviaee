@@ -9,7 +9,7 @@ use App\Domain\Interfaces\IMissionRepository;
 class GetMissionsController extends Controller
 {
     /**
-     * Return missions request for the authenticated user
+     * Get missions request
      *
      * @param Request $request
      * @param IMissionRepository $missions

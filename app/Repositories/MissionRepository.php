@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Domain\Interfaces\IMissionRepository;
 use App\Domain\Entities\MissionEntity;
 use App\Models\Mission as MissionModel;
+use App\Domain\Entities\Date;
 use Illuminate\Support\Facades\Auth;
 
 class MissionRepository implements IMissionRepository
@@ -27,8 +28,8 @@ class MissionRepository implements IMissionRepository
                 startingLocation: $model->starting_location,
                 destination: $model->destination,
                 email: $model->email,
-                dateCreated: new \App\Domain\Entities\Date($model->date_created),
-                dateDelivered: new \App\Domain\Entities\Date($model->date_delivered)
+                dateCreated: new Date($model->date_created),
+                dateDelivered: new Date($model->date_delivered)
             );
         })->all();
     }

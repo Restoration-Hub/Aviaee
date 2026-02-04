@@ -3,10 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// })->name('home');
-
 Route::get('/', function () {
     return view('loginPage');
 })->name('home');
@@ -19,11 +15,7 @@ Route::get('/create-mission', function () {
     return view('createMissionPage');
 })->name('create.mission');
 
-// Route::get('/login-sample', function () {
-//     return view('loginSample');
-// });
-
-// TODO: Remove this sample login page route after implementing full auth flow
+// TODO: Remove this page route after implementing full auth flow
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
