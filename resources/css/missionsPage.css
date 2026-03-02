@@ -1,0 +1,177 @@
+.missions-header-container {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    margin: 30px 30px 10px 30px;
+}
+
+.missions-header {
+    font-size: 28px;
+    margin-left: 30px;
+}
+
+.missions-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+    flex-direction: column;
+    width: 100%;
+}
+
+.create-mission-button {
+    background-color: #639EB0;
+    border: none;
+    color: white;
+    padding: 5px 30px;
+    height: 42px;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 10px;
+    font-family: 'Josefin Sans', sans-serif;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+
+    img {
+        width: 22px;
+        height: 22px;
+        margin-bottom: 3px;
+    }
+}
+
+/* MISSIONS TABLE COMPONENT */
+.missions-table-component {
+    width: 100%;
+}
+
+.missions-top-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+    gap: 20px;
+}
+
+.missions-search-form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+
+    .search-input {
+        padding: 8px 40px 8px 20px;
+        width: 270px;
+        height: 42px;
+        font-size: 16px;
+        font-weight: 300;
+        border: 1px solid #003049;
+        border-radius: 100px;
+        background-color: white;
+        color: black;
+    }
+
+    .search-icon {
+        position: relative;
+        right: 38px;
+    }
+
+    .status-filter {
+        padding: 11px;
+        height: 42px;
+        font-size: 16px;
+        font-weight: 300;
+        border: 1px solid #D36E53;
+        border-radius: 5px;
+        background-color: white;
+        color: black;
+    }
+}
+
+.missions-table {
+    border: 1px solid #DE927E;
+    font-weight: 300;
+}
+
+/* HTML table styles */
+.table-responsive {
+    overflow-x: auto;
+    width: 100%;
+}
+
+.missions-table-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.missions-table-table thead th {
+    background: #D36E53;
+    color: white;
+    font-weight: 700;
+    text-align: left;
+    padding: 12px 16px;
+    border-right: 1px solid #DE927E;
+}
+
+.missions-table-table thead th:last-child {
+    border-right: none;
+}
+
+.missions-table-table tbody td {
+    padding: 14px 16px;
+    border-right: 1px solid #DE927E;
+    vertical-align: middle;
+}
+
+.missions-table-table tbody td:last-child {
+    border-right: none;
+}
+
+.missions-table-table tbody tr:nth-child(odd) {
+    background: #fff;
+}
+
+.missions-table-table tbody tr:nth-child(even) {
+    background: #F8E1DB;
+}
+
+/* Mission Status */
+.status-badge {
+    display: flex;
+    justify-content: center;
+    width: 85px;
+    padding: 6px 10px;
+    border-radius: 5px;
+    line-height: 1;
+}
+
+.no-results {
+    padding: 16px;
+    color: #6b7280;
+}
+
+@media (max-width: 720px) {
+
+    /* Make table scroll horizontally on small screens */
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    .missions-table-table thead {
+        display: table-header-group;
+    }
+
+    .missions-table-table tbody tr {
+        display: table-row;
+    }
+
+    .missions-table-table thead th,
+    .missions-table-table tbody td {
+        white-space: nowrap;
+    }
+}

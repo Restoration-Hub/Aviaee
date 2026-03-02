@@ -19,6 +19,10 @@ Route::get('/createMission', function () {
     return view('createMissionPage');
 })->name('createMission');
 
+Route::get('/missions', function () {
+    return view('missionsPage');
+})->name('missions');
+
 // Route::get('/login-sample', function () {
 //     return view('loginSample');
 // });
@@ -35,4 +39,4 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

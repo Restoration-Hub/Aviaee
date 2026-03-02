@@ -16,7 +16,7 @@
 <body>
 
   <div class="header">
-    <div class="header-title">AVIAEE</div>
+    <div>AVIAEE</div>
   </div>
 
     <div class="main">

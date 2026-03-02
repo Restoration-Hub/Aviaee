@@ -26,8 +26,8 @@ Route::middleware('guest')->group(function () {
     Volt::route('reset-password/{token}', 'auth.reset-password')
         ->name('password.reset');
 
-    Route::post('/missions', CreateMissionController::class)
-        ->name('missions.store'); // TODO: Move this to auth after login implementation complete
+    // Route::post('/missions', CreateMissionController::class)
+    //     ->name('missions.store'); // TODO: Move this to auth after login implementation complete
 });
 
 Route::middleware('auth')->group(function () {
