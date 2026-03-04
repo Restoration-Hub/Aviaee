@@ -34,7 +34,9 @@ class GetMissionsController extends Controller
                 'destination' => $m->destination,
                 'email' => $m->email,
                 'dateCreated' => (string) $m->dateCreated,
-                'dateDelivered' => (string) $m->dateDelivered,
+                // note: $m->dateDelivered may be null; return null instead of string to avoid
+                // defaulting to current timestamp when casting.
+                'dateDelivered' => $m->dateDelivered ? (string) $m->dateDelivered : null,
             ];
         }, $entities);
 

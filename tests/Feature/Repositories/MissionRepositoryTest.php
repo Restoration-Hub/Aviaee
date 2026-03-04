@@ -90,5 +90,7 @@ test('returns missions for a given email', function () {
 
     foreach ($results as $r) {
         expect($r->email)->toBe($user->email);
+        // dateDelivered should be null when not set in database
+        expect($r->dateDelivered)->toBeNull();
     }
 });

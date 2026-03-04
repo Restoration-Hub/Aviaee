@@ -29,7 +29,7 @@ class MissionRepository implements IMissionRepository
                 destination: $model->destination,
                 email: $model->email,
                 dateCreated: new Date($model->date_created),
-                dateDelivered: new Date($model->date_delivered)
+                dateDelivered: $model->date_delivered ? new Date($model->date_delivered) : null
             );
         })->all();
     }
@@ -60,7 +60,7 @@ class MissionRepository implements IMissionRepository
             destination: $model->destination,
             email: $model->email,
             dateCreated: $model->date_created,
-            dateDelivered: $model->date_delivered
+            dateDelivered: $model->date_delivered ? new Date($model->date_delivered) : null
         );
     }
 }

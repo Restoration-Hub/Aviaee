@@ -54,5 +54,7 @@ test('returns missions for authenticated user', function () {
             'dateCreated',
             'dateDelivered',
         ]);
+        // dateDelivered should be null when not set
+        expect($m['dateDelivered'])->toBeNull();
     }
 });

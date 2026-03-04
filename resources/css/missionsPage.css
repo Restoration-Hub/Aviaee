@@ -96,12 +96,15 @@
 .missions-table {
     border: 1px solid #DE927E;
     font-weight: 300;
+    margin-bottom: 20px;
 }
 
 /* HTML table styles */
 .table-responsive {
     overflow-x: auto;
+    overflow-y: auto;
     width: 100%;
+    max-height: calc(100vh - 250px);
 }
 
 .missions-table-table {
@@ -130,6 +133,11 @@
 
 .missions-table-table tbody td:last-child {
     border-right: none;
+}
+
+.missions-table-table tbody tr:hover {
+    cursor: pointer;
+    background-color: #fbf0ee !important;
 }
 
 .missions-table-table tbody tr:nth-child(odd) {

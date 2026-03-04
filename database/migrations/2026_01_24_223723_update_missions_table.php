@@ -12,18 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('missions', function (Blueprint $table) {
-            $table->string('status')->default('created');
+            $table->string('status')->default('ordered');
             $table->timestamp('date_created')->useCurrent();
             $table->timestamp('date_delivered')->nullable();
         });
     }
 
-    /**
+    /** 
      * Reverse the migrations.
      */
     public function down(): void
     {
         Schema::dropIfExists('missions');
-
     }
 };

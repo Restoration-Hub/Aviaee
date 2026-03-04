@@ -12,6 +12,6 @@ class MissionEntity
         public string $destination,
         public ?string $email,
         public Date $dateCreated,
-        public Date $dateDelivered
+        public ?Date $dateDelivered
     ) {}
 }
