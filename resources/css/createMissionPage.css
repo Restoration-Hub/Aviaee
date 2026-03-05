@@ -66,7 +66,7 @@ body {
 
 .cancel-button {
     background-color: #FFFAF3;
-    border: 1px solid #639EB0;
+    border: 2px solid #639EB0;
     color: #639EB0;
     padding: 10px 30px;
     font-size: 16px;
@@ -75,4 +75,3 @@ body {
     margin-top: 10px;
     font-family: 'Josefin Sans', sans-serif;
 }
-

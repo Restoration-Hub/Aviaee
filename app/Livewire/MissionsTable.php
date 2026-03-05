@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\Attributes\Url;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,22 +12,33 @@ class MissionsTable extends Component
 {
     use WithPagination;
 
-    public $search = '';
-    public $status = '';
-    public $perPage = 10;
-    public $sortField = 'created_at';
-    public $sortAsc = false;
+    #[Url]
+    public string $search = '';
 
-    protected $updatesQueryString = ['search', 'status'];
+    #[Url]
+    public string $status = '';
+
+    public int $perPage = 10;
+    public string $sortField = 'created_at';
+    public bool $sortAsc = false;
 
     public function updatingSearch()
     {
+        logger()->info('updatingSearch called, resetting page');
         $this->resetPage();
     }
 
     public function updatingStatus()
     {
+        logger()->info('updatingStatus called, resetting page');
         $this->resetPage();
+    }
+
+    public function openModal($missionData)
+    {
+        logger()->info('openModal called with data', $missionData);
+        // propagate event for modal component to listen
+        $this->dispatch('openMissionModal', $missionData);
     }
 
     public function render()
@@ -35,9 +47,14 @@ class MissionsTable extends Component
         $items = collect();
 
         $email = Auth::user()?->email;
+        if (!Auth::check()) {
+            logger()->warning('MissionsTable.render called with no authenticated user');
+        }
         if ($email) {
             $repo = app(\App\Domain\Interfaces\IMissionRepository::class);
             $entities = $repo->getMissions($email);
+
+            logger()->info('MissionsTable.render fetched ' . count($entities) . ' entities for ' . $email);
 
             $items = collect(array_map(function ($m) {
                 return [
@@ -51,6 +68,8 @@ class MissionsTable extends Component
                     'dateDelivered' => $m->dateDelivered ? (string) $m->dateDelivered : '',
                 ];
             }, $entities));
+        } else {
+            logger()->info('MissionsTable.render: user has no email, returning empty items');
         }
 
         // apply filters on collection
