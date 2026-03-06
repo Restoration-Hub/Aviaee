@@ -16,7 +16,6 @@
             <!-- Body -->
             <div class="modal-body">
                 <div class="mission-detail-row">
-                    {{-- <span class="detail-label">Status:</span> --}}
                     @if($editingStatus)
                         @foreach(\App\Enums\MissionStatus::cases() as $status)
                             <option value="{{ $status->value }}">{{ $status->label() }}</option>
@@ -54,7 +53,7 @@
 
                 <div class="mission-detail-row">
                     <span class="detail-label">Date Delivered:</span>
-                    <span class="detail-value">{{ $mission['dateDelivered'] ?? 'N/A' }}</span>
+                    <span class="detail-value">{{ empty($mission['dateDelivered']) ? 'N/A' : $mission['dateDelivered'] }}</span>
                 </div>
             </div>
 
