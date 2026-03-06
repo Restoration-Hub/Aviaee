@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\Attributes\Url;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,13 +12,17 @@ class MissionsTable extends Component
 {
     use WithPagination;
 
-    public $search = '';
-    public $status = '';
-    public $perPage = 10;
-    public $sortField = 'created_at';
-    public $sortAsc = false;
+    #[Url]
+    public string $search = '';
 
-    protected $updatesQueryString = ['search', 'status'];
+    #[Url]
+    public string $status = '';
+
+    public int $perPage = 10;
+
+    // TODO: implement sorting in UI and add logic here
+    public string $sortField = 'created_at';
+    public bool $sortAsc = false;
 
     public function updatingSearch()
     {
@@ -29,15 +34,29 @@ class MissionsTable extends Component
         $this->resetPage();
     }
 
+    public function openModal($missionData)
+    {
+        logger()->info('openModal called for mission', ['id' => $missionData['id'] ?? null]);
+        // propagate event for modal component to listen
+        $this->dispatch('openMissionModal', $missionData);
+    }
+
     public function render()
     {
         // Fetch missions for the authenticated user via repository
         $items = collect();
 
         $email = Auth::user()?->email;
+        if (!$email) {
+            logger()->warning('MissionsTable.render called with no authenticated user');
+        }
         if ($email) {
+            // TODO: for users with many missions, this becomes inefficient
+            // may want to consider pushing filters (status, search) to the repository query
             $repo = app(\App\Domain\Interfaces\IMissionRepository::class);
             $entities = $repo->getMissions($email);
+
+            logger()->info('MissionsTable.render fetched ' . count($entities) . ' entities for user ' . Auth::id());
 
             $items = collect(array_map(function ($m) {
                 return [
@@ -51,6 +70,8 @@ class MissionsTable extends Component
                     'dateDelivered' => $m->dateDelivered ? (string) $m->dateDelivered : '',
                 ];
             }, $entities));
+        } else {
+            logger()->info('MissionsTable.render: user has no email, returning empty items');
         }
 
         // apply filters on collection
@@ -70,7 +91,7 @@ class MissionsTable extends Component
                 || str_contains(strtolower((string) ($m['dateDelivered'] ?? '')), $q);
         })->values();
 
-        $page = request()->get('page', 1);
+        $page = (int) request()->get('page', 1);
         $perPage = $this->perPage;
         $currentItems = $filtered->forPage($page, $perPage);
 

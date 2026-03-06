@@ -74,6 +74,7 @@
 
                 if (response.status === 200) {
                     console.log('Login successful');
+                    window.location.href = '/missions-list';
                 } else if (response.status === 401) {
                     const data = await response.json();
                     console.error(data.message || 'Unauthorized');
