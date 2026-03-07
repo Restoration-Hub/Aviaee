@@ -12,6 +12,7 @@ class UserEntity
         public string $userType,
         public string $email,
         public string $password,
+        public string $address
     ) {}
 
     public function initials(): string

@@ -27,6 +27,7 @@ class RegisterUserController extends Controller
             'user_type'    => 'required|string',
             'email'        => 'required|email|unique:users,email',
             'password'     => 'required|string|min:8',
+            'address'      => 'required|string',
         ]);
 
         try {
@@ -38,7 +39,8 @@ class RegisterUserController extends Controller
                 phoneNumber: $request->input('phone_number'),
                 userType: $request->input('user_type'),
                 email: $request->input('email'),
-                password: '' // handled in use case
+                password: '', // handled in use case
+                address: $request->input('address')
             );
 
             // Call the use case
