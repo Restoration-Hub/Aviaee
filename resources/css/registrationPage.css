@@ -7,8 +7,8 @@
     text-align: center;
 }
 
-.input-box {
-    width: 90%;
+.input-box-registration {
+    width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -18,25 +18,87 @@
 }
 
 .select-box {
-    width: 95%;
+    width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 15px;
     background-color: #F0F0F0;
     margin-top: 8px;
+    height: 44.5px;
 }
 
 .input-group {
     text-align: left;
     margin-bottom: 16px;
     font-size: 14px;
+    flex: 1 1 0;
+    min-width: 0;
 }
 
 .adjacent-input-group {
     display: flex;
-    gap: 10px;
+    gap: 20px;
     justify-content: space-between;
-    width: 95%;
+    width: 100%;
 
+}
+
+.register-title {
+    margin-bottom: 20px;
+    font-size: 30px;
+}
+
+.checkbox-box {
+    font-size: 15px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px; 
+}
+
+.checkbox {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+}
+
+.error-message {
+  color: #d93025;
+  font-size: 13px;
+  display: flex;
+  gap: 6px;
+}
+
+.password-error-message {
+  color: #d93025;
+  font-size: 13px;
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.error-icon {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #d93025;
+  color: white;
+  font-size: 11px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+}
+
+.label-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-error-message {
+  color: #ff5a4f;
+  font-size: 13px;
+  margin-top: 8px;
+  display: flex;
+  gap: 6px;
+  justify-content: center; 
 }

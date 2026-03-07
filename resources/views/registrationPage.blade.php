@@ -21,59 +21,123 @@
 
     <div class="main">
         <div class="registration-box">
-            <h2>Register</h2>
-
-        <div class="adjacent-input-group">
-            <div class="input-group">
-                <label>First Name</label>
-                <input id="first_name" class="input-box" type="text">
+            <div class="register-title">
+                <h2>Register</h2>
+                <div id="formError" class="form-error-message"></div>
             </div>
-            <div class="input-group">
-                <label>Last Name</label>
-                <input id="last_name" class="input-box" type="text">
-            </div>
-        </div>
 
+            <div class="adjacent-input-group">
+                <div class="input-group">
+                    <label>First Name</label>
+                    <input id="first_name" class="input-box-registration" type="text">
+                </div>
+                <div class="input-group">
+                    <label>Last Name</label>
+                    <input id="last_name" class="input-box-registration" type="text">
+                </div>
+            </div>
+            
+       
             <div class="input-group">
-                <label>Email</label>
-                <input id="email" class="input-box" type="email">
+                <div class="label-row">
+                    <label for="email">Email</label>
+                    <div id="emailError" class="error-message"></div>
+                </div>
+                <input id="email" class="input-box-registration" type="email">
             </div>
 
             <div class="adjacent-input-group">
                 <div class="input-group">
                     <label>Password</label>
-                    <input id="password" class="input-box" type="password">
+                    <input id="password" class="input-box-registration" type="password">
+                    <div id="passwordError" class="password-error-message"></div>
                 </div>
                 <div class="input-group">
-                    <label>Confirm Password</label>
-                    <input id="confirm_password" class="input-box" type="password">
+                    <label for="confirm_password">Confirm Password</label>               
+                    <input id="confirm_password" class="input-box-registration" type="password">
                 </div>
             </div>
 
+            <div class="input-group">
+                <label>Address</label>
+                <input id="address" class="input-box-registration" type="text">
+            </div>
+
             <div class="misc-input-group">
-                <div class="input-group">
-                    <label>Phone Number</label>
-                    <input id="phone_number" class="input-box" type="text">
+                <div class="adjacent-input-group">
+                    <div class="input-group">
+                        <label>User Type</label>
+                        <select id="user_type" class="select-box">
+                            <option value="buyer">Buyer</option>
+                            <option value="seller">Seller</option>
+                            <option value="pilot">Pilot</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Phone Number</label>
+                        <input id="phone_number" class="input-box-registration" type="text">
+                    </div>
                 </div>
-                <div class="input-group">
-                    <label>User Type</label>
-                    <select id="user_type" class="select-box">
-                        <option value="buyer">Buyer</option>
-                        <option value="seller">Seller</option>
-                        <option value="pilot">Pilot</option>
-                    </select>
             </div>
-            <div> 
-                <input type="checkbox" class="checkbox-box"> Allow Aviaee to access your location?
+
+            <div class="checkbox-box">
+                <input type="checkbox" id="locationCheck" class="checkbox">
+                <label for="locationCheck">Allow Aviaee to access your location?</label>
             </div>
-            <button id="registerBtn" class="action-button">Register</button>
+
+            <button id="registerBtn" class="action-button" disabled>Register</button>
         </div>
     </div>
 
     <div id="message" style="margin-top: 10px; font-weight: bold;"></div>
 
     <script>
+
+        const checkbox = document.getElementById("locationCheck");
         const registerBtn = document.getElementById('registerBtn');
+        const emailInput = document.getElementById("email");
+        const emailError = document.getElementById("emailError");
+        const passwordInput = document.getElementById("password");
+        const confirmInput = document.getElementById("confirm_password");
+        const formError = document.getElementById("formError");
+
+        confirmInput.addEventListener("blur", function () {
+            if (confirmInput.value === "") {
+                passwordError.innerHTML = "";
+                return;
+            }
+
+            if (passwordInput.value !== confirmInput.value) {
+                passwordError.innerHTML =
+                    '<span class="error-icon">!</span> Passwords do not match';
+            } else {
+                passwordError.innerHTML = "";
+            }
+        });
+
+        emailInput.addEventListener("blur", function () {
+            const value = emailInput.value.trim();
+
+            if (value === "") {
+                emailError.innerHTML = "";
+                return;
+            }
+
+            if (!emailInput.checkValidity()) {
+                emailError.innerHTML =
+                '<span class="error-icon">!</span> Invalid email';
+            } else {
+                emailError.innerHTML = "";
+            }
+            });
+
+            emailInput.addEventListener("input", function () {
+            emailError.innerHTML = "";
+        });
+
+        checkbox.addEventListener("change", function () {
+            registerBtn.disabled = !this.checked;
+        });
 
         registerBtn.addEventListener('click', async () => {
             const firstName = document.getElementById('first_name')?.value;
@@ -83,17 +147,20 @@
             const email = document.getElementById('email')?.value;
             const password = document.getElementById('password')?.value;
             const confirmPassword = document.getElementById('confirm_password')?.value;
+            const address = document.getElementById('address')?.value;
 
-            // Defensive check (prevents crash)
             if (
                 !firstName || !lastName || !phoneNumber ||
-                !userType || !email || !password || !confirmPassword
+                !userType || !email || !password || !confirmPassword || !address
             ) {
                 console.warn('Please fill in all fields.');
+                formError.innerHTML =
+                    '<span class="error-icon">!</span> Please fill in all fields';
                 return;
+            } else {
+                formError.innerHTML = "";
             }
 
-            // Confirm password check
             if (password !== confirmPassword) {
                 console.warn('Passwords do not match.');
                 return;
@@ -115,7 +182,8 @@
                         phone_number: phoneNumber,
                         user_type: userType,
                         email,
-                        password
+                        password,
+                        address: address
                     })
                 });
 
@@ -136,7 +204,6 @@
             }
         });
     </script>
-
 
 </body>
 </html>

@@ -11,6 +11,7 @@ test('Registration endpoint returns 200 for successful registration', function (
         'user_type'    => 'buyer',
         'email'        => 'steve@example.com',
         'password'     => 'secret123',
+        'address'      => '1 Infinite Loop, Cupertino, CA',
     ]);
 
     $response
@@ -29,6 +30,7 @@ test('Registration endpoint returns 422 when field is missing', function () {
         'user_type'    => 'buyer',
         // 'email' is missing
         'password'     => 'secret123',
+        'address'      => '1 Infinite Loop, Cupertino, CA',
     ]);
 
     $response

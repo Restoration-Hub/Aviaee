@@ -21,18 +21,21 @@
 
     <div class="main">
         <div class="login-box">
-            <h2>Sign In</h2>
+            <div class="signin-title">
+                <h2>Sign In</h2>
+                <div id="formError" class="form-error-message"></div>
+            </div>
 
             <div class="input-group">
                 <label>Email</label>
                 <br>
-                <input class="input-box" id="email" type="email">
+                <input class="input-box-signin" id="email" type="email">
             </div>
 
             <div class="input-group">
                 <label>Password</label>
                 <br>
-                <input class="input-box" id="password" type="password">
+                <input class="input-box-signin" id="password" type="password">
             </div>
 
             <div class="forgot">
@@ -58,7 +61,11 @@
 
             if (!email || !password) {
                 console.warn('Please enter email and password.');
+                formError.innerHTML =
+                    '<span class="error-icon">!</span> Please enter email and password';
                 return;
+            } else {
+                formError.innerHTML = "";
             }
 
             try {
@@ -74,9 +81,11 @@
 
                 if (response.status === 200) {
                     console.log('Login successful');
+                    window.location.href = "{{ route('missions.list') }}";
                 } else if (response.status === 401) {
                     const data = await response.json();
                     console.error(data.message || 'Unauthorized');
+                    formError.innerHTML = '<span class="error-icon">!</span> Incorrect email or password';
                 } else if (response.status === 422) {
                     const data = await response.json();
                     console.error(data.message || 'Validation error');
