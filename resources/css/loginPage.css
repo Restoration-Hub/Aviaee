@@ -7,8 +7,8 @@
     text-align: center;
 }
 
-.input-box {
-    width: 90%;
+.input-box-signin {
+    width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -36,4 +36,31 @@
 .forgot {
     text-align: right;
     margin-bottom: 20px;
+}
+
+.signin-title {
+    margin-bottom: 20px;
+    font-size: 30px;
+}
+
+
+.error-icon {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #d93025;
+  color: white;
+  font-size: 11px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+}
+
+.form-error-message {
+  color: #ff5a4f;
+  font-size: 13px;
+  margin-top: 8px;
+  display: flex;
+  gap: 6px;
+  justify-content: center; 
 }

@@ -40,6 +40,7 @@ class UserRepository implements IUserRepository
             'user_type'    => $user->userType,
             'email'        => $user->email,
             'password'     => $hashedPassword,
+            'address'      => $user->address,
         ]);
 
         return new UserEntity(
@@ -50,6 +51,7 @@ class UserRepository implements IUserRepository
             userType: $model->user_type,
             email: $model->email,
             password: $model->password,
+            address: $model->address
         );
     }
 }

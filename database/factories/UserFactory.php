@@ -30,6 +30,7 @@ class UserFactory extends Factory
             'user_type' => fake()->randomElement(['buyer', 'seller', 'pilot']),
             'email' => fake()->unique()->safeEmail(),
             'password' => static::$password ??= Hash::make('password'),
+            'address' => fake()->address(),
         ];
     }
 
