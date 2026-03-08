@@ -15,11 +15,6 @@ Route::get('/create-mission', function () {
     return view('createMissionPage');
 })->name('create.mission');
 
-// TODO: Remove this page route after implementing full auth flow
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
-
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
