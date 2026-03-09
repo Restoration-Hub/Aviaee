@@ -120,6 +120,18 @@ body {
     font-family: 'Josefin Sans', sans-serif;
 }
 
+.delete-button{
+        background-color: #c62828;
+        color: white;
+        padding: 6px 30px;
+        font-size: 16px;
+        font-weight: 600;
+        margin-top: 10px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-family: 'Josefin Sans', sans-serif;
+    }
+    
 .action-button-secondary {
     background-color: #3E5F6A;
     border: none;

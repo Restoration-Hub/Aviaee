@@ -10,6 +10,7 @@ class MissionDetailsModal extends Component
     public bool $isOpen = false;
     public array $mission = [];
     public bool $editingStatus = false;
+    public bool $showDeleteConfirmation = false;
     public string $selectedStatus = '';
 
     #[On('openMissionModal')]
@@ -23,6 +24,7 @@ class MissionDetailsModal extends Component
         $this->mission = $missionData;
         $this->selectedStatus = $missionData['status'] ?? '';
         $this->editingStatus = false;
+        $this->showDeleteConfirmation = false;
         $this->isOpen = true;
     }
 
@@ -31,12 +33,34 @@ class MissionDetailsModal extends Component
         $this->isOpen = false;
         $this->mission = [];
         $this->editingStatus = false;
+        $this->showDeleteConfirmation = false;
         $this->selectedStatus = '';
     }
 
     public function toggleEditStatus()
     {
         $this->editingStatus = !$this->editingStatus;
+    }
+
+    public function openDeleteConfirmationPopup()
+    {
+        $this->showDeleteConfirmation = true;
+    }
+
+    public function closeDeleteConfirmationPopup()
+    {
+        $this->showDeleteConfirmation = false;
+    }
+
+     public function deleteMission()
+    {
+        if (!isset($this->mission['id'])) {
+            return;
+        }
+
+        $this->dispatch('deleteMission', missionId: $this->mission['id']);
+
+        $this->close();
     }
 
     // TODO: TBD when update API is implemented - may need to move this logic? (MissionsTable)

@@ -74,11 +74,36 @@
                     <button type="button" class="action-button-secondary" wire:click="toggleEditStatus()">
                         Edit Status
                     </button>
+                    <button type="button" class="delete-button" wire:click="openDeleteConfirmationPopup()">
+                        Delete Mission
+                    </button>
                     <button type="button" class="action-button" wire:click="close()">
                         Close
                     </button>
                 @endif
             </div>
+              {{-- Delete confirmation popup --}}
+        @if($showDeleteConfirmation)
+            <div class="delete-confirmation-overlay" wire:click="closeDeleteConfirmationPopup"></div>
+
+            <div class="delete-confirmation-modal" role="dialog" aria-modal="true" aria-labelledby="delete-modal-title">
+                <h3 id="delete-modal-title">Delete Mission?</h3>
+                <p>
+                    Are you sure you want to delete
+                    <strong>{{ $mission['missionName'] ?? 'this mission' }}</strong>?
+                    This action cannot be undone.
+                </p>
+
+                <div class="delete-confirmation-actions">
+                    <button type="button" class="cancel-button" wire:click="closeDeleteConfirmationPopup">
+                        Cancel
+                    </button>
+                    <button type="button" class="delete-button" wire:click="deleteMission">
+                        Yes, Delete
+                    </button>
+                </div>
+            </div>
+        @endif
         </div>
     @endif
 </div>
