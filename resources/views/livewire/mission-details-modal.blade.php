@@ -67,7 +67,7 @@
                     <button type="button" class="action-button" wire:click="updateStatus()">
                         Save Status
                     </button>
-                    <button type="button" class="cancel-button" wire:click="toggleEditStatus()">
+                    <button type="button" class="action-cancel-button" wire:click="toggleEditStatus()">
                         Cancel
                     </button>
                 @else
