@@ -5,6 +5,11 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
+// Disables checking for Vite assets in tests
+uses(Tests\TestCase::class)
+    ->in('Feature')
+    ->beforeEach(fn() => $this->withoutVite());
+
 test('home page can be rendered for guests', function () {
     $response = $this->get(route('home'));
 

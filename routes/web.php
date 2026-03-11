@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 // use Livewire\Volt\Volt;
 
 // ALL: able to access login and registration pages
+// Note: authenticated users are redirected to the missions list main page
 Route::middleware(['guest'])->group(function () {
     Route::get('/', function () {
         return view('loginPage');
@@ -14,7 +15,7 @@ Route::middleware(['guest'])->group(function () {
     })->name('registration');
 });
 
-// AUTHENTICATED: able to access mission-related pages and settings pages
+// AUTHENTICATED: able to access mission-related pages (and settings pages?)
 Route::middleware(['auth'])->group(function () {
     // Route::get('settings', function () {
     //     return redirect()->route('settings.profile');
