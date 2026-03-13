@@ -31,7 +31,7 @@
                             $badgeText = $statusEnum ? $statusEnum->label() : \Illuminate\Support\Str::title((string) ($statusValue ?? 'Unknown'));
                         @endphp
                         <span class="mission-details-status-badge" style="background: {{ $badgeColor }}">STATUS: {{ $badgeText }}</span>
-                    @endif  
+                    @endif
                 </div>
 
                 <div class="mission-detail-row">
@@ -63,7 +63,6 @@
             <!-- Footer with Actions -->
             <div class="modal-footer">
                 @if($editingStatus)
-                {{-- TODO: not sure about these buttons (TBD when update API done) --}}
                     <button type="button" class="action-button" wire:click="updateStatus()">
                         Save Status
                     </button>
@@ -82,28 +81,103 @@
                     </button>
                 @endif
             </div>
-              {{-- Delete confirmation popup --}}
-        @if($showDeleteConfirmation)
-            <div class="delete-confirmation-overlay" wire:click="closeDeleteConfirmationPopup"></div>
 
-            <div class="delete-confirmation-modal" role="dialog" aria-modal="true" aria-labelledby="delete-modal-title">
-                <h3 id="delete-modal-title">Delete Mission?</h3>
-                <p>
-                    Are you sure you want to delete
-                    <strong>{{ $mission['missionName'] ?? 'this mission' }}</strong>?
-                    This action cannot be undone.
-                </p>
+            {{-- Delete confirmation popup --}}
+            @if($showDeleteConfirmation)
+                <div class="delete-confirmation-overlay" wire:click="closeDeleteConfirmationPopup"></div>
 
-                <div class="delete-confirmation-actions">
-                    <button type="button" class="cancel-button" wire:click="closeDeleteConfirmationPopup">
-                        Cancel
-                    </button>
-                    <button type="button" class="delete-button" wire:click="deleteMission">
-                        Yes, Delete
-                    </button>
+                <div class="delete-confirmation-modal" role="dialog" aria-modal="true" aria-labelledby="delete-modal-title">
+                    <h3 id="delete-modal-title">Delete Mission?</h3>
+                    <p>
+                        Are you sure you want to delete
+                        <strong>{{ $mission['missionName'] ?? 'this mission' }}</strong>?
+                        This action cannot be undone.
+                    </p>
+
+                    <div class="delete-confirmation-actions">
+                        <button type="button" class="cancel-button" wire:click="closeDeleteConfirmationPopup">
+                            Cancel
+                        </button>
+                        <button type="button" class="delete-button" wire:click="deleteMission">
+                            Yes, Delete
+                        </button>
+                    </div>
                 </div>
-            </div>
-        @endif
+            @endif
         </div>
     @endif
 </div>
+
+<script>
+document.addEventListener('livewire:init', () => {
+    Livewire.on('deleteMission', async ({ missionId }) => {
+        if (!missionId) return;
+
+        try {
+            const resp = await fetch('/missions/delete', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': document
+                        .querySelector('meta[name="csrf-token"]')
+                        .getAttribute('content')
+                },
+                body: JSON.stringify({ missionId })
+            });
+
+            const text = await resp.text();
+            let data = {};
+
+            try {
+                data = text ? JSON.parse(text) : {};
+            } catch (e) {
+                sessionStorage.setItem(
+                    'missionBannerMessage',
+                    'Server returned invalid response'
+                );
+
+                sessionStorage.setItem('missionBannerType','error');
+
+                window.location.reload();
+                return;
+            }
+
+            if (!resp.ok) {
+                sessionStorage.setItem(
+                    'missionBannerMessage',
+                    data.message || 'Failed to delete mission'
+                );
+
+                sessionStorage.setItem('missionBannerType','error');
+
+                window.location.reload();
+                return;
+            }
+
+            // Store banner before reload
+            sessionStorage.setItem(
+                'missionBannerMessage',
+                data.message || 'Mission deleted successfully!'
+            );
+
+            sessionStorage.setItem('missionBannerType','success');
+
+            // Refresh page immediately
+            window.location.reload();
+
+        } catch (err) {
+            console.error(err);
+
+            sessionStorage.setItem(
+                'missionBannerMessage',
+                'Error deleting mission'
+            );
+
+            sessionStorage.setItem('missionBannerType','error');
+
+            window.location.reload();
+        }
+    });
+});
+</script>
