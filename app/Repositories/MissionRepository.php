@@ -63,4 +63,20 @@ class MissionRepository implements IMissionRepository
             dateDelivered: $model->date_delivered ? new Date($model->date_delivered) : null
         );
     }
+
+    /**
+    * Delete a mission from the database by id
+    *
+    * @param int $id
+    * @return void
+    */
+    public function delete(int $id): void
+    {
+        $model = MissionModel::find($id);
+        if (!$model) {
+            throw new \Exception("Mission not found");
+        }
+
+        $model->delete();
+    }
 }

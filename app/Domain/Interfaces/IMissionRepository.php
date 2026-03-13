@@ -18,4 +18,9 @@ interface IMissionRepository
      * Creates a mission in the database and returns the new entity
      */
     public function create(MissionEntity $mission): MissionEntity;
+
+    /**
+    * Deletes a mission from the database by id
+    */
+    public function delete(int $id): void;
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
+use App\Http\Controllers\Missions\DeleteMissionController;
 
 Route::get('/', function () {
     return view('loginPage');
@@ -25,6 +26,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/missions-list', function () {
         return view('missionsPage');
     })->name('missions.list');
+
+    Route::delete('/missions/delete', DeleteMissionController::class)
+        ->name('missions.delete');
 });
 
 require __DIR__ . '/auth.php';
