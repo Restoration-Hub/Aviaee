@@ -73,7 +73,7 @@ class MissionDetailsModal extends Component
         }
 
         // Emit event to MissionsTable to handle the update
-        $this->dispatch('statusUpdated', missionId: $this->mission['id'], newStatus: $this->selectedStatus);
+        $this->dispatch('updateMissionStatus', missionId: $this->mission['id'], newStatus: $this->selectedStatus);
 
         // Update local mission data
         $this->mission['status'] = $this->selectedStatus;
