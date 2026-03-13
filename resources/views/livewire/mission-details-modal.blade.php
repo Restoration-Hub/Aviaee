@@ -139,7 +139,7 @@ document.addEventListener('livewire:init', () => {
 
                 sessionStorage.setItem('missionBannerType','error');
 
-                window.location.reload();
+                // window.location.reload();
                 return;
             }
 
@@ -151,7 +151,7 @@ document.addEventListener('livewire:init', () => {
 
                 sessionStorage.setItem('missionBannerType','error');
 
-                window.location.reload();
+                // window.location.reload();
                 return;
             }
 
@@ -176,7 +176,77 @@ document.addEventListener('livewire:init', () => {
 
             sessionStorage.setItem('missionBannerType','error');
 
+            // window.location.reload();
+        }
+    });
+
+    Livewire.on('updateMissionStatus', async ({ missionId, newStatus }) => {
+        if (!missionId || !newStatus) return;
+
+        try {
+            const resp = await fetch('/missions/updateStatus', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': document
+                        .querySelector('meta[name="csrf-token"]')
+                        .getAttribute('content')
+                },
+                body: JSON.stringify({ missionId, status: newStatus })
+            });
+
+            const text = await resp.text();
+            let data = {};
+
+            try {
+                data = text ? JSON.parse(text) : {};
+            } catch (e) {
+                sessionStorage.setItem(
+                    'missionBannerMessage',
+                    'Server returned invalid response'
+                );
+
+                sessionStorage.setItem('missionBannerType','error');
+
+                // window.location.reload();
+                return;
+            }
+
+            if (!resp.ok) {
+                sessionStorage.setItem(
+                    'missionBannerMessage',
+                    data.message || 'Failed to update mission status'
+                );
+
+                sessionStorage.setItem('missionBannerType','error');
+
+                // window.location.reload();
+                return;
+            }
+
+            // Store banner before reload
+            sessionStorage.setItem(
+                'missionBannerMessage',
+                data.message || 'Mission status updated successfully!'
+            );
+
+            sessionStorage.setItem('missionBannerType','success');
+
+            // Refresh page immediately
             window.location.reload();
+
+        } catch (err) {
+            console.error(err);
+
+            sessionStorage.setItem(
+                'missionBannerMessage',
+                'Error updating mission status'
+            );
+
+            sessionStorage.setItem('missionBannerType','error');
+
+            // window.location.reload();
         }
     });
 });

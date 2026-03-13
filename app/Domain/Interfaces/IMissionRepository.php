@@ -23,4 +23,9 @@ interface IMissionRepository
     * Deletes a mission from the database by id
     */
     public function delete(int $id): void;
+
+    /**
+    * Updates a mission status in the database by id
+    */
+    public function updateStatus(int $id, string $status): void;
 }
