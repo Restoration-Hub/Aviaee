@@ -7,7 +7,7 @@
 
     <!-- CSRF token for Laravel -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    @vite(['resources/css/createMissionPage.css'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,9 +25,9 @@
         <div class="header-title">AVIAEE</div>
     </div>
 
-    <div class="main">
+    <div class="">
         <div class="create-mission-box">
-            <h2>Create Mission</h2>
+            <h1 class="create-mission-header">Create Mission</h1>
 
             <div class="input-group">
                 <label>Mission Name</label>
@@ -41,13 +41,16 @@
 
             <div class="input-group">
                 <label>Destination</label>
-                <input required class="input-box" id="destination" placeholder="Enter a dropoff address">
+                <input required class="input-box" id="destination" placeholder="Enter a drop-off address">
             </div>
 
-            <div class="action-buttons" style="margin-top: 20px;">
-                <a href="{{ route('missions.list') }}" class="cancel-button">Cancel</a>
-                <button id="create-button" class="create-button">Create</button>
+            <div class="action-buttons">
+                <a href="{{ route('missions.list') }}" id="cancel-button" class="action-cancel-button">Cancel</a>
+                <button id="create-button" class="action-button">Create</button>
             </div>
+
+            {{-- TODO: Add error message display similar to login/register implementation
+            <div id="message" style="margin-top: 10px; font-weight: bold;"></div> --}}
         </div>
     </div>
 
