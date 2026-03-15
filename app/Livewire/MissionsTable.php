@@ -91,8 +91,10 @@ class MissionsTable extends Component
                 || str_contains(strtolower((string) ($m['dateDelivered'] ?? '')), $q);
         })->values();
 
-        $page = (int) request()->get('page', 1);
+
+        $page = $this->getPage();
         $perPage = $this->perPage;
+
         $currentItems = $filtered->forPage($page, $perPage);
 
         $missions = new LengthAwarePaginator(
@@ -100,7 +102,10 @@ class MissionsTable extends Component
             $filtered->count(),
             $perPage,
             $page,
-            ['path' => request()->url(), 'query' => request()->query()]
+            [
+                'path' => request()->url(),
+                'query' => request()->query(),
+            ]
         );
 
         return view('livewire.missions-table', ['missions' => $missions]);

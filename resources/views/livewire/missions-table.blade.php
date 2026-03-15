@@ -1,6 +1,4 @@
 <div class="missions-table-component">
-    @php $missions = $missions ?? collect(); @endphp
-
     <!-- Mission Details Modal Component -->
     <livewire:mission-details-modal />
 
@@ -81,13 +79,10 @@
                     @endforelse
                 </tbody>
             </table>
-
-            <div class="pagination-wrap">
-                @if (method_exists($missions, 'links'))
-                    {{ $missions->links() }}
-                @endif
-            </div>
         </div>
+    </div>
+    <div class="pagination-wrap">
+        {{ $missions->links() }}
     </div>
 </div>
 
