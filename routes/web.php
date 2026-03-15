@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 // use Livewire\Volt\Volt;
+use App\Http\Controllers\Missions\DeleteMissionController;
+use App\Http\Controllers\Missions\UpdateMissionController;
 
 // ALL: able to access login and registration pages
 // Note: authenticated users are redirected to the missions list main page
@@ -32,6 +34,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/create-mission', function () {
         return view('createMissionPage');
     })->name('create.mission');
+
+    Route::delete('/missions/delete', DeleteMissionController::class)
+        ->name('missions.delete');
+
+    Route::put('/missions/updateStatus', UpdateMissionController::class)
+        ->name('missions.updateStatus');
 });
 
 require __DIR__ . '/auth.php';

@@ -34,3 +34,50 @@
         gap: 50px;
     }
 }
+
+.top-banner {
+    position: fixed;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 320px;
+    max-width: 90%;
+    padding: 14px 18px;
+    border-radius: 5px;
+    color: white;
+    font-weight: 600;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    z-index: 9999;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.top-banner.show {
+    display: flex;
+}
+
+.top-banner.success {
+    background-color: #f2faf3;
+    border: 1px solid #2e7d32;
+    color: #2e7d32;
+}
+
+.top-banner.error {
+    background-color: #fff5f5;
+    border: 1px solid #c62828;
+    color: #c62828;
+}
+
+.banner-close {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    line-height: 1;
+    padding: 0;
+}
