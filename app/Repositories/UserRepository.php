@@ -41,6 +41,8 @@ class UserRepository implements IUserRepository
             'email'        => $user->email,
             'password'     => $hashedPassword,
             'address'      => $user->address,
+            'latitude'     => $user->latitude,
+            'longitude'    => $user->longitude,
         ]);
 
         return new UserEntity(
@@ -51,7 +53,9 @@ class UserRepository implements IUserRepository
             userType: $model->user_type,
             email: $model->email,
             password: $model->password,
-            address: $model->address
+            address: $model->address,
+            latitude: $model->latitude,
+            longitude: $model->longitude
         );
     }
 }

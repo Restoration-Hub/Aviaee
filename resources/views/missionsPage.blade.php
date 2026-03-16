@@ -18,7 +18,9 @@
 <body>
     <div id="topBanner" class="top-banner">
         <span id="bannerText"></span>
-        <button id="bannerClose" class="banner-close" aria-label="Close banner">&times;</button>
+        <button type="button" id="bannerClose" class="banner-close" aria-label="Close banner">
+            <img src="{{ Vite::asset('resources/assets/close-icon.svg') }}" alt="Close Icon">
+        </button>
     </div>
 
     <div class="header">

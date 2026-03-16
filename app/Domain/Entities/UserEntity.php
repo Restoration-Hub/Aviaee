@@ -12,7 +12,9 @@ class UserEntity
         public string $userType,
         public string $email,
         public string $password,
-        public string $address
+        public string $address,
+        public float $latitude,
+        public float $longitude
     ) {}
 
     public function initials(): string
@@ -27,4 +29,3 @@ class UserEntity
         );
     }
 }
-
