@@ -65,11 +65,11 @@ class MissionRepository implements IMissionRepository
     }
 
     /**
-    * Delete a mission from the database by id
-    *
-    * @param int $id
-    * @return void
-    */
+     * Delete a mission from the database by id
+     *
+     * @param int $id
+     * @return void
+     */
     public function delete(int $id): void
     {
         $model = MissionModel::find($id);
@@ -81,12 +81,12 @@ class MissionRepository implements IMissionRepository
     }
 
     /**
-    * Update a mission status in the database by id
-    *
-    * @param int $id
-    * @param string $status
-    * @return void
-    */
+     * Update a mission status in the database by id
+     *
+     * @param int $id
+     * @param string $status
+     * @return void
+     */
     public function updateStatus(int $id, string $status): void
     {
         $model = MissionModel::find($id);

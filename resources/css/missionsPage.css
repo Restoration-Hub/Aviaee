@@ -2,7 +2,7 @@
     width: 100%;
     display: flex;
     justify-content: left;
-    margin: 30px 30px 10px 30px;
+    margin: 30px 30px 0 30px;
 }
 
 .missions-header {
@@ -54,7 +54,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     gap: 20px;
 }
 
@@ -96,7 +96,6 @@
 .missions-table {
     border: 1px solid #DE927E;
     font-weight: 300;
-    margin-bottom: 20px;
 }
 
 /* HTML table styles */
