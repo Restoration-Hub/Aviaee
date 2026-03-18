@@ -12,6 +12,8 @@ test('Registration endpoint returns 200 for successful registration', function (
         'email'        => 'steve@example.com',
         'password'     => 'secret123',
         'address'      => '1 Infinite Loop, Cupertino, CA',
+        'latitude'     => 37.33182,
+        'longitude'    => -122.03118,
     ]);
 
     $response
@@ -31,6 +33,8 @@ test('Registration endpoint returns 422 when field is missing', function () {
         // 'email' is missing
         'password'     => 'secret123',
         'address'      => '1 Infinite Loop, Cupertino, CA',
+        'latitude'     => 37.33182,
+        'longitude'    => -122.03118,
     ]);
 
     $response
@@ -40,4 +44,3 @@ test('Registration endpoint returns 422 when field is missing', function () {
             'errors' => ['email'],
         ]);
 });
-

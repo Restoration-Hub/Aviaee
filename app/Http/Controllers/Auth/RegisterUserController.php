@@ -28,6 +28,8 @@ class RegisterUserController extends Controller
             'email'        => 'required|email|unique:users,email',
             'password'     => 'required|string|min:8',
             'address'      => 'required|string',
+            'latitude'     => 'required|numeric',
+            'longitude'    => 'required|numeric',
         ]);
 
         try {
@@ -40,7 +42,9 @@ class RegisterUserController extends Controller
                 userType: $request->input('user_type'),
                 email: $request->input('email'),
                 password: '', // handled in use case
-                address: $request->input('address')
+                address: $request->input('address'),
+                latitude: $request->input('latitude'),
+                longitude: $request->input('longitude')
             );
 
             // Call the use case
@@ -54,13 +58,11 @@ class RegisterUserController extends Controller
                 'message' => 'Registration successful',
                 'user_id' => $userId
             ], 201);
-
         } catch (ValidationException $e) {
             return response()->json([
                 'message' => 'Validation error',
                 'errors' => $e->errors(),
             ], 422);
-
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Internal server error'

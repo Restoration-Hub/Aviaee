@@ -15,9 +15,16 @@
 
 <body>
 
-  <div class="header">
-    <div>AVIAEE</div>
-  </div>
+    <div id="topBanner" class="top-banner">
+        <span id="bannerText"></span>
+        <button type="button" id="bannerClose" class="banner-close" aria-label="Close banner">
+            <img src="{{ Vite::asset('resources/assets/close-icon.svg') }}" alt="Close Icon">
+        </button>
+    </div>
+    
+    <div class="header">
+        <div>AVIAEE</div>
+    </div>
 
     <div class="main">
         <div class="registration-box">
@@ -93,13 +100,38 @@
 
     <script>
 
+        let latitude = null;
+        let longitude = null;
+        let bannerTimeout;
+        const topBanner = document.getElementById('topBanner');
+        const bannerText = document.getElementById('bannerText');
+        const bannerClose = document.getElementById('bannerClose');
         const checkbox = document.getElementById("locationCheck");
         const registerBtn = document.getElementById('registerBtn');
+        registerBtn.disabled = true;
         const emailInput = document.getElementById("email");
         const emailError = document.getElementById("emailError");
         const passwordInput = document.getElementById("password");
+        const passwordError = document.getElementById("passwordError");
         const confirmInput = document.getElementById("confirm_password");
         const formError = document.getElementById("formError");
+
+        function showBanner(message, type = 'success', duration = 6000) {
+            bannerText.textContent = message;
+            topBanner.className = `top-banner show ${type}`;
+
+            clearTimeout(bannerTimeout);
+            bannerTimeout = setTimeout(() => {
+                topBanner.classList.remove('show');
+            }, duration);
+        }
+
+        function hideBanner() {
+            topBanner.classList.remove('show');
+            clearTimeout(bannerTimeout);
+        }
+
+        bannerClose.addEventListener('click', hideBanner);
 
         confirmInput.addEventListener("blur", function () {
             if (confirmInput.value === "") {
@@ -136,7 +168,12 @@
         });
 
         checkbox.addEventListener("change", function () {
-            registerBtn.disabled = !this.checked;
+            if (this.checked) {
+                requestLocation();
+            } else {
+                latitude = null;
+                longitude = null;
+            }
         });
 
         registerBtn.addEventListener('click', async () => {
@@ -153,16 +190,14 @@
                 !firstName || !lastName || !phoneNumber ||
                 !userType || !email || !password || !confirmPassword || !address
             ) {
-                console.warn('Please fill in all fields.');
                 formError.innerHTML =
                     '<span class="error-icon">!</span> Please fill in all fields';
                 return;
-            } else {
-                formError.innerHTML = "";
             }
 
             if (password !== confirmPassword) {
-                console.warn('Passwords do not match.');
+                passwordError.innerHTML =
+                    '<span class="error-icon">!</span> Passwords do not match';
                 return;
             }
 
@@ -183,26 +218,58 @@
                         user_type: userType,
                         email,
                         password,
-                        address: address
+                        address: address,
+                        latitude: latitude,
+                        longitude: longitude
                     })
                 });
 
                 if (response.status === 201) {
-                    console.log('Registration successful');
                     window.location.href = '/';
-                } else if (response.status === 422) {
-                    const data = await response.json();
-                    console.error(data.message || 'Validation error');
-                } else if (response.status === 500) {
-                    const data = await response.json();
-                    console.error(data.message || 'Internal server error');
                 } else {
-                    console.error('Unexpected error:', response.status);
+                    const data = await response.json();
+                    console.error(data.message || 'Registration error');
                 }
+
             } catch (error) {
                 console.error('Network error:', error.message);
             }
         });
+
+        // GOELOCATION FUNCTIONS
+        function requestLocation() {
+            if (!navigator.geolocation) {
+                showBanner('Geolocation is not supported by this browser.', 'error');
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    latitude = position.coords.latitude;
+                    longitude = position.coords.longitude;
+                    registerBtn.disabled = false;
+                    showBanner('Location accessed successfully!', 'success');
+                },
+                showError
+            );
+        }
+
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    document.getElementById("location-status").innerHTML = "User denied the request for Geolocation."
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    document.getElementById("location-status").innerHTML = "Location information is unavailable."
+                    break;
+                case error.TIMEOUT:
+                    document.getElementById("location-status").innerHTML = "The request to get user location timed out."
+                    break;
+                case error.UNKNOWN_ERROR:
+                    document.getElementById("location-status").innerHTML = "An unknown error occurred."
+                    break;
+            }
+        }
     </script>
 
 </body>
