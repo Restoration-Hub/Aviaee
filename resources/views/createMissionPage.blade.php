@@ -21,9 +21,8 @@
         <button id="bannerClose" class="banner-close" aria-label="Close banner">&times;</button>
     </div>
 
-    <div class="header">
-        <div class="header-title">AVIAEE</div>
-    </div>
+     <!-- Header Component -->
+    <livewire:header />
 
     <div class="">
         <div class="create-mission-box">
