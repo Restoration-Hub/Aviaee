@@ -23,9 +23,8 @@
         </button>
     </div>
 
-    <div class="header">
-        <div>AVIAEE</div>
-    </div>
+     <!-- Header Component -->
+    <livewire:header />
 
     <div class="missions-header-container">
         <h1 class="missions-header">Missions</h1>

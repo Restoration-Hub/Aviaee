@@ -84,6 +84,61 @@ body {
     color: white;
     padding: 16px 24px;
     font-size: 28px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.account-container {
+    position: relative;
+    cursor: pointer;
+}
+
+.account-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 55px;
+    background: white;
+    color: black;
+    border-radius: 8px;
+    padding: 12px;
+    width: 250px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.user-name {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.user-email {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color:#3E5F6A;
+}
+
+.logout-btn {
+    width: 100%;
+    padding: 4px;
+    border: none;
+    background: #3E5F6A;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    justify-content: center;
+    text-align: center;
+}
+
+.dropdown.show {
+    display: block;
 }
 
 .main {
