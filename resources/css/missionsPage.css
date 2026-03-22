@@ -300,6 +300,18 @@
     min-width: 120px;
 }
 
+.edit-status-button {
+    background-color: #3E5F6A;
+    border: none;
+    color: white;
+    padding: 6px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 6px;
+    margin-left: 16px;
+}
+
 .modal-footer {
     display: flex;
     flex-direction: row;
@@ -342,7 +354,8 @@
 .delete-confirmation-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 6px;
     z-index: 1002;
 }
 

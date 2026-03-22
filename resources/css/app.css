@@ -110,7 +110,7 @@ body {
     border-radius: 8px;
     padding: 12px;
     width: 250px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .user-name {
@@ -121,7 +121,7 @@ body {
 .user-email {
     font-size: 14px;
     margin-bottom: 10px;
-    color:#3E5F6A;
+    color: #3E5F6A;
 }
 
 .logout-btn {
@@ -176,7 +176,7 @@ body {
 }
 
 .delete-button {
-    background-color: #c62828;
+    background-color: #c42c02;
     color: white;
     padding: 6px 30px;
     font-size: 16px;

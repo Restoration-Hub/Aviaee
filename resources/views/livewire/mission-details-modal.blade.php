@@ -31,6 +31,9 @@
                             $badgeText = $statusEnum ? $statusEnum->label() : \Illuminate\Support\Str::title((string) ($statusValue ?? 'Unknown'));
                         @endphp
                         <span class="mission-details-status-badge" style="background: {{ $badgeColor }}">STATUS: {{ $badgeText }}</span>
+                        <button type="button" class="edit-status-button" wire:click="toggleEditStatus()">
+                            Edit Status
+                        </button>
                     @endif
                 </div>
 
@@ -63,21 +66,18 @@
             <!-- Footer with Actions -->
             <div class="modal-footer">
                 @if($editingStatus)
-                    <button type="button" class="action-button" wire:click="updateStatus()">
-                        Save Status
-                    </button>
                     <button type="button" class="action-cancel-button" wire:click="toggleEditStatus()">
                         Cancel
                     </button>
+                    <button type="button" class="action-button" wire:click="updateStatus()">
+                        Save Status
+                    </button>
                 @else
-                    <button type="button" class="action-button-secondary" wire:click="toggleEditStatus()">
-                        Edit Status
-                    </button>
-                    <button type="button" class="delete-button" wire:click="openDeleteConfirmationPopup()">
-                        Delete Mission
-                    </button>
                     <button type="button" class="action-button" wire:click="close()">
                         Close
+                    </button>    
+                    <button type="button" class="delete-button" wire:click="openDeleteConfirmationPopup()">
+                        Delete Mission
                     </button>
                 @endif
             </div>
@@ -95,10 +95,10 @@
                     </p>
 
                     <div class="delete-confirmation-actions">
-                        <button type="button" class="cancel-button" wire:click="closeDeleteConfirmationPopup">
+                        <button type="button" class="action-cancel-button" wire:click="closeDeleteConfirmationPopup">
                             Cancel
                         </button>
-                        <button type="button" class="delete-button" wire:click="deleteMission">
+                        <button type="button" class="action-button" wire:click="deleteMission">
                             Yes, Delete
                         </button>
                     </div>
