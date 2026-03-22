@@ -51,7 +51,7 @@
             </div>
 
             <div class="action-buttons">
-                <a href="{{ route('missions.list') }}" id="cancel-button" class="action-cancel-button">Cancel</a>
+                <a href="{{ route('missions.list') }}" id="cancel-button" class="hyperlink-button action-cancel-button">Cancel</a>
                 <button id="create-button" class="action-button">Create</button>
             </div>
 

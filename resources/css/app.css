@@ -149,6 +149,12 @@ body {
 }
 
 /* BUTTON STYLING */
+button:hover,
+.hyperlink-button:hover {
+    opacity: 0.9;
+    filter: saturate(135%);
+}
+
 .action-button {
     background-color: #639EB0;
     border: none;
@@ -173,6 +179,10 @@ body {
     border-radius: 4px;
     margin-top: 10px;
     font-family: 'Josefin Sans', sans-serif;
+}
+
+.action-cancel-button:hover {
+    background-color: white;
 }
 
 .delete-button {

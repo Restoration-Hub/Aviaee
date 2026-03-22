@@ -293,6 +293,7 @@
 
 .status-select {
     padding: 8px 12px;
+    background-color: white;
     border: 1px solid #d1d5db;
     border-radius: 4px;
     font-size: 14px;

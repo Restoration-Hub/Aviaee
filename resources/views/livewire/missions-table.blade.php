@@ -17,7 +17,7 @@
         </div>
 
         <div>
-            <a href="{{ route('create.mission') }}" class="create-mission-button">
+            <a href="{{ route('create.mission') }}" class="hyperlink-button create-mission-button">
                 <img src="{{ Vite::asset('resources/assets/plus-icon.svg') }}" alt="Plus Icon"> 
                 Create Mission
             </a>
