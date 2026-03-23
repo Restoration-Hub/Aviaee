@@ -26,4 +26,9 @@ class Mission extends Model
         'date_created',
         'date_delivered',
     ];
+
+    protected $casts = [
+        'date_created' => 'datetime',
+        'date_delivered' => 'datetime',
+    ];
 }

@@ -52,20 +52,20 @@ class MissionDetailsModal extends Component
         $this->showDeleteConfirmation = false;
     }
 
-  public function deleteMission()
-{
-    $missionId = $this->mission['id'] ?? null;
+    public function deleteMission()
+    {
+        $missionId = $this->mission['id'] ?? null;
 
-    if (!$missionId) {
-        return;
+        if (!$missionId) {
+            return;
+        }
+
+        $this->showDeleteConfirmation = false;
+        $this->isOpen = false;
+
+        $this->dispatch('deleteMission', missionId: $missionId);
     }
 
-    $this->showDeleteConfirmation = false;
-    $this->isOpen = false;
-
-    $this->dispatch('deleteMission', missionId: $missionId);
-}
-    // TODO: TBD when update API is implemented - may need to move this logic? (MissionsTable)
     public function updateStatus()
     {
         if (!isset($this->mission['id'])) {
