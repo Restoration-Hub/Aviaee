@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
 class Mission extends Model
@@ -25,10 +24,5 @@ class Mission extends Model
         'email',
         'date_created',
         'date_delivered',
-    ];
-
-    protected $casts = [
-        'date_created' => 'datetime',
-        'date_delivered' => 'datetime',
     ];
 }

@@ -9,7 +9,7 @@ use Carbon\Carbon;
  */
 class Date
 {
-    public Carbon|null $carbon;
+    public ?Carbon $carbon;
 
     public function __construct(string|Carbon|null $value = null)
     {
@@ -22,11 +22,11 @@ class Date
 
     public function __toString(): string
     {
-        return $this->carbon ? $this->carbon->format('Y-m-d H:i:s') : '';
+        return $this->carbon?->format('Y-m-d H:i:s') ?? '';
     }
 
-    public function toDateTimeString(): string
+    public function toDateTimeString(): ?string
     {
-        return $this->carbon ? $this->carbon->toDateTimeString() : '';
+        return $this->carbon?->toDateTimeString();
     }
 }
