@@ -26,11 +26,28 @@
             background-color: white;
             margin-top: 8px;
         }
+
+        .input-box.placeholder-option {
+            outline: none;
+            border-color: #639EB0;
+        }
     }
 
     .action-buttons {
         display: flex;
         justify-content: center;
         gap: 50px;
+    }
+}
+
+/* Placeholder option */
+#startingLocation:has(option:checked[value=""]) {
+    color: #7f7f7f;
+}
+
+/* Normal options appear black */
+#startingLocation {
+    option {
+        color: black;
     }
 }

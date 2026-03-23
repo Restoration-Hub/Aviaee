@@ -9,20 +9,24 @@ use Carbon\Carbon;
  */
 class Date
 {
-    public Carbon $carbon;
+    public ?Carbon $carbon;
 
     public function __construct(string|Carbon|null $value = null)
     {
-        $this->carbon = $value instanceof Carbon ? $value : Carbon::parse($value ?? now());
+        if ($value === null) {
+            $this->carbon = null;
+        } else {
+            $this->carbon = $value instanceof Carbon ? $value : Carbon::parse($value);
+        }
     }
 
     public function __toString(): string
     {
-        return $this->carbon->format('Y-m-d H:i:s');
+        return $this->carbon?->format('Y-m-d H:i:s') ?? '';
     }
 
-    public function toDateTimeString(): string
+    public function toDateTimeString(): ?string
     {
-        return $this->carbon->toDateTimeString();
+        return $this->carbon?->toDateTimeString();
     }
 }

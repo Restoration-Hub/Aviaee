@@ -37,7 +37,12 @@
 
             <div class="input-group">
                 <label>Starting Location</label>
-                <input required class="input-box" id="startingLocation" placeholder="Enter a pickup address">
+                <select id="startingLocation" wire:model="selectedStatus" class="input-box">
+                    <option value="" disabled hidden selected>Select a pickup shop</option>
+                    @foreach(\App\Enums\ShopData::cases() as $shops)
+                        <option value="{{ $shops->value }}">{{ $shops->label() }} — {{ $shops->address() }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="input-group">
@@ -46,7 +51,7 @@
             </div>
 
             <div class="action-buttons">
-                <a href="{{ route('missions.list') }}" id="cancel-button" class="action-cancel-button">Cancel</a>
+                <a href="{{ route('missions.list') }}" id="cancel-button" class="hyperlink-button action-cancel-button">Cancel</a>
                 <button id="create-button" class="action-button">Create</button>
             </div>
 
@@ -92,7 +97,7 @@
                 showBanner('Please enter a mission name.', 'error');
                 return;
             } else if (!startingLocation) {
-                showBanner('Please enter a starting location.', 'error');
+                showBanner('Please select a starting location.', 'error');
                 return;
             } else if (!destination) {
                 showBanner('Please enter a destination.', 'error');

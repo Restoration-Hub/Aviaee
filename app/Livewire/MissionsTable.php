@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\Attributes\Url;
+use Livewire\Attributes\On;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,6 +24,16 @@ class MissionsTable extends Component
     // TODO: implement sorting in UI and add logic here
     public string $sortField = 'created_at';
     public bool $sortAsc = false;
+
+    #[On('updateMissionStatus')]
+    public function updateMissionStatus($missionId, $newStatus)
+    {
+        $repo = app(\App\Domain\Interfaces\IMissionRepository::class);
+
+        $repo->updateStatus($missionId, $newStatus);
+
+        $this->resetPage(); // refresh UI
+    }
 
     public function updatingSearch()
     {

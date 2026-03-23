@@ -1,3 +1,12 @@
+.back-button {
+    position: absolute;
+    top: 90px;
+    left: 20px;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 4px;
+}
+
 .registration-box {
     background-color: #FFFFFF;
     padding: 30px;
@@ -53,7 +62,7 @@
     font-size: 15px;
     display: flex;
     justify-content: flex-start;
-    gap: 10px; 
+    gap: 10px;
 }
 
 .checkbox {
@@ -63,42 +72,42 @@
 }
 
 .error-message {
-  color: #d93025;
-  font-size: 13px;
-  display: flex;
-  gap: 6px;
+    color: #d93025;
+    font-size: 13px;
+    display: flex;
+    gap: 6px;
 }
 
 .password-error-message {
-  color: #d93025;
-  font-size: 13px;
-  display: flex;
-  gap: 6px;
-  margin-top: 10px;
+    color: #d93025;
+    font-size: 13px;
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
 }
 
 .error-icon {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #d93025;
-  color: white;
-  font-size: 11px;
-  font-weight: bold;
-  display: flex;
-  justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #d93025;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
 }
 
 .label-row {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
 .form-error-message {
-  color: #ff5a4f;
-  font-size: 13px;
-  margin-top: 8px;
-  display: flex;
-  gap: 6px;
-  justify-content: center; 
+    color: #ff5a4f;
+    font-size: 13px;
+    margin-top: 8px;
+    display: flex;
+    gap: 6px;
+    justify-content: center;
 }

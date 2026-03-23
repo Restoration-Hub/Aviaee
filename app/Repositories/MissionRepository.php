@@ -97,6 +97,9 @@ class MissionRepository implements IMissionRepository
             throw new \Exception("Invalid status");
         }
 
-        $model->update(['status' => $status]);
+        $model->update([
+            'status' => $status,
+            'date_delivered' => $status === 'delivered' ? now() : null,
+        ]);
     }
 }

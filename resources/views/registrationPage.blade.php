@@ -26,6 +26,8 @@
         <div>AVIAEE</div>
     </div>
 
+    <a class="hyperlink-button action-button back-button" href="{{ route('home') }}">Back</a>
+
     <div class="main">
         <div class="registration-box">
             <div class="register-title">
