@@ -38,10 +38,6 @@
                 <input class="input-box-signin" id="password" type="password">
             </div>
 
-            <div class="forgot">
-                <a href="#" class="link">Forgot password?</a>
-            </div>
-
             <button id="loginBtn" class="action-button">Sign In</button>
 
             <p style="margin-top: 16px;">
