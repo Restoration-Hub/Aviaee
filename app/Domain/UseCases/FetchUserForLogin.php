@@ -14,19 +14,34 @@ class FetchUserForLogin
     /**
      * Returns the user ID if login succeeds, null otherwise
      */
-    public function execute(string $email, string $password): ?int
-    {
-        $data = $this->users->findByEmail($email); // Returns ['id', 'password'] or null
+   public function execute(string $email, string $password): array {
+        $data = $this->users->findByEmail($email);
 
         if (!$data) {
-            return null;
+            return [
+                'status' => 'invalid_credentials',
+                'user_id' => null,
+            ];
         }
 
         if (!Hash::check($password, $data['password'])) {
-            return null;
+            return [
+                'status' => 'invalid_credentials',
+                'user_id' => null,
+            ];
         }
 
-        return $data['id'];
+        if (!$data['email_verified_at']) {
+            return [
+                'status' => 'unverified',
+                'user_id' => $data['id'],
+            ];
+        }
+
+        return [
+            'status' => 'success',
+            'user_id' => $data['id'],
+        ];
     }
 }
 

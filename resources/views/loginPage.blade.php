@@ -38,8 +38,12 @@
                 <input class="input-box-signin" id="password" type="password">
             </div>
 
-            <div class="forgot">
-                <a href="#" class="link">Forgot password?</a>
+            <div id="verify-message" style="display:none; color: green; margin-top: 10px;">
+                Please check your email to verify your account before logging in.
+            </div>
+
+            <div id="verified-message" style="display:none; color:green; margin-bottom:10px;">
+                Email verified successfully. You can now log in.
             </div>
 
             <button id="loginBtn" class="action-button">Sign In</button>
@@ -53,6 +57,20 @@
     </div>
 
     <script>
+        const params = new URLSearchParams(window.location.search);
+        const verifyEmailMessage = document.getElementById('verify-message');
+
+        if (params.get('verify_email') === '1') {
+            verifyEmailMessage.style.display = 'block';
+
+            window.history.replaceState({}, document.title, "/");
+        }
+
+        if (params.get('verified') === '1') {
+            const message = document.getElementById('verified-message');
+            message.style.display = 'block';
+        }
+
         const loginBtn = document.getElementById('loginBtn');
 
         loginBtn.addEventListener('click', async () => {
@@ -86,6 +104,10 @@
                     const data = await response.json();
                     console.error(data.message || 'Unauthorized');
                     formError.innerHTML = '<span class="error-icon">!</span> Incorrect email or password';
+                } else if (response.status === 403) {
+                    const data = await response.json();
+                    console.error(data.message || 'Forbidden');
+                    formError.innerHTML = '<span class="error-icon">!</span> Please verify your email before logging in';
                 } else if (response.status === 422) {
                     const data = await response.json();
                     console.error(data.message || 'Validation error');

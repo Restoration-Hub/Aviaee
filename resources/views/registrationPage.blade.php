@@ -189,7 +189,7 @@
 
                 if (response.status === 201) {
                     console.log('Registration successful');
-                    window.location.href = '/';
+                    window.location.href = '/?verify_email=1';
                 } else if (response.status === 422) {
                     const data = await response.json();
                     console.error(data.message || 'Validation error');

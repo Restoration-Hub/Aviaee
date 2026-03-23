@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Illuminate\Auth\Events\Registered;
 use App\Domain\Interfaces\IUserRepository;
 use App\Domain\Entities\UserEntity;
 use App\Models\User as UserModel;
@@ -21,6 +22,7 @@ class UserRepository implements IUserRepository
         return $user ? [
             'id' => $user->id,
             'password' => $user->password,
+            'email_verified_at' => $user->email_verified_at,
         ] : null;
     }
 
@@ -42,6 +44,8 @@ class UserRepository implements IUserRepository
             'password'     => $hashedPassword,
             'address'      => $user->address,
         ]);
+
+        event(new Registered($model));
 
         return new UserEntity(
             id: $model->id,
