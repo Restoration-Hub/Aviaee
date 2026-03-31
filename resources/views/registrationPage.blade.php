@@ -67,6 +67,8 @@
                 </div>
             </div>
 
+            <p class="form-help-text">Password must be at least 8 characters long.</p>
+
             <div class="input-group">
                 <label>Address</label>
                 <input id="address" class="input-box-registration" type="text">

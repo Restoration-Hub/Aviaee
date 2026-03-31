@@ -111,3 +111,11 @@
     gap: 6px;
     justify-content: center;
 }
+
+.form-help-text {
+    color: #666;
+    font-size: 13px;
+    margin-top: -16px;
+    margin-bottom: 10px;
+    display: flex;
+}
